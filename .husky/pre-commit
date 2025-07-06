@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Checking types..."
+tsc --noEmit --project tsconfig.lint.json
+
+echo "Linting..."
+ng lint --fix
+sc --noEmit --project tsconfig.lint.json
