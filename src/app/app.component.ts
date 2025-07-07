@@ -4,11 +4,13 @@ import { RouterOutlet } from '@angular/router';
 import { environment } from '../environments/environment';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
+import { HeroComponent } from "./core/hero/hero.component";
+import { HowItWorksComponent } from "./core/how-it-works/how-it-works.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, HeroComponent, HowItWorksComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

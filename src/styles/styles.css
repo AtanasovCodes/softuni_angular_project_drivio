@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "_reset.css";
+@import "_typography.css";
 @import "_utilities.css";
 
 /* Spacing scale */
@@ -9,6 +10,7 @@
   --space-3: 1rem;
   --space-4: 2rem;
   --main-color: #3a6ff8;
+  --secondary-color: #1746a2;
 }
 
 /* ===== Base HTML Styles ===== */
@@ -59,6 +61,24 @@ button {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+/* ===== Buttons ===== */
+
+button.primary {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all ease-in-out 0.3s;
+}
+
+button.primary:hover {
+  background-color: var(--secondary-color);
 }
 
 /* ===== Responsive Typography ===== */

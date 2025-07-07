@@ -6,7 +6,7 @@ footer {
   color: #6c757d;
 }
 
-footer a {
+footer a p{
   color: var(--main-color);
   text-decoration: none;
 }
