@@ -1,7 +1,15 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { LucideAngularModule } from 'lucide-angular';
 
 import { routes } from './app.routes';
+
+import { LUCIDE_ICONS } from '../constants/lucide-icons';
+
 import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
@@ -9,5 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    importProvidersFrom(LucideAngularModule.pick(LUCIDE_ICONS)),
   ],
 };

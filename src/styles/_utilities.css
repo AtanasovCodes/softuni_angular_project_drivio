@@ -208,3 +208,8 @@
 .text-center {
   text-align: center;
 }
+
+.spacer {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+}
