@@ -1,0 +1,23 @@
+<article
+  class="car-card"
+  [attr.aria-label]="'Car: ' + car.brand + ' ' + car.model"
+>
+  <img
+    [src]="car.image"
+    alt="{{ car.brand }} {{ car.model }}"
+    class="car-image"
+  />
+
+  <section class="car-content">
+    <header class="car-header">
+      <h5 class="car-name">{{ car.brand }} {{ car.model }} ({{ car.year }})</h5>
+      <p class="car-price">
+        <strong>${{ car.pricePerDay }}</strong
+        >/day
+      </p>
+    </header>
+    <div class="divider"></div>
+    <app-car-features [features]="car.features"></app-car-features>
+    <button class="primary">View Details</button>
+  </section>
+</article>

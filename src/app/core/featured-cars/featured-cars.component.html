@@ -1,0 +1,10 @@
+<section class="container featured-cars-section">
+  <h2 class="text-center mb-4">Featured Cars</h2>
+  <ul class="featured-cars" aria-label="Featured Cars List">
+    @for (car of cars; track car.id) {
+    <li class="featured-car-item" tabindex="0">
+      <app-car-card [car]="car" />
+    </li>
+    }
+  </ul>
+</section>

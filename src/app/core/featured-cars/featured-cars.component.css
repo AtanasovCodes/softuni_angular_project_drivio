@@ -1,0 +1,11 @@
+.featured-cars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+}
+
+.featured-car-item {
+  width: 33.33%;
+}
+
