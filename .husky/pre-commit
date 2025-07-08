@@ -6,7 +6,6 @@ tsc --noEmit --project tsconfig.lint.json
 
 echo "Linting..."
 ng lint --fix
-sc --noEmit --project tsconfig.lint.json
 
 echo "Running tests..."
 ng test --watch=false --browsers=ChromeHeadlessNoSandbox --code-coverage
