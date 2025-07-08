@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -10,7 +11,6 @@ import { routes } from './app.routes';
 
 import { LUCIDE_ICONS } from '../constants/lucide-icons';
 
-import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [

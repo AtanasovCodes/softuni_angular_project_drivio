@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HeroComponent } from './hero.component';
 import { By } from '@angular/platform-browser';
+
+import { HeroComponent } from './hero.component';
 
 describe('HeroComponent', () => {
   let component: HeroComponent;
@@ -27,18 +28,18 @@ describe('HeroComponent', () => {
 
   it('should render the Explore Cars button', () => {
     const button = fixture.debugElement.query(
-      By.css('button.primary')
+      By.css('button.primary'),
     ).nativeElement;
     expect(button.textContent).toBe('Explore Cars');
   });
 
   it('should render the hero image with correct src and alt attributes', () => {
     const img = fixture.debugElement.query(
-      By.css('img.hero-image')
+      By.css('img.hero-image'),
     ).nativeElement;
     expect(img.getAttribute('src')).toBe('assets/images/hero-banner.webp');
     expect(img.getAttribute('alt')).toBe(
-      'A stunning car parked in a scenic location'
+      'A stunning car parked in a scenic location',
     );
     expect(img.getAttribute('width')).toBe('1600');
     expect(img.getAttribute('height')).toBe('600');

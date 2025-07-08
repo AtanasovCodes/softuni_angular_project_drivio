@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
+
 import { Car } from '../../../types/cars.interface';
-import { DividerComponent } from "../divider/divider.component";
-import { CarFeaturesComponent } from "../car-features/car-features.component";
+import { CarFeaturesComponent } from '../car-features/car-features.component';
+import { DividerComponent } from '../divider/divider.component';
+
 
 @Component({
   selector: 'app-car-card',

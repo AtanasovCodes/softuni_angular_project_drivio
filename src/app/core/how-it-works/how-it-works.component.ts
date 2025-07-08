@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { HowItWorksStepComponent } from './how-it-works-step/how-it-works-step.component';
 
 @Component({

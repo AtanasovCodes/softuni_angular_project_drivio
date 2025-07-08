@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+
 import { capitalizeWords } from './car-features.utils';
+
 
 @Component({
   selector: 'app-car-features',

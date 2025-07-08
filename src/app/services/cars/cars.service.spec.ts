@@ -1,11 +1,12 @@
-import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import {
   HttpTestingController,
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { CarsService } from './cars.service';
+
 import { environment } from '../../../environments/environment';
 import { CarListResponse } from '../../../types/cars.interface';
 
@@ -59,7 +60,7 @@ describe('CarsService', () => {
     });
 
     const req = httpTestingController.expectOne(
-      `${environment.baseURL}/cars?limit=10&page=1`
+      `${environment.baseURL}/cars?limit=10&page=1`,
     );
 
     expect(req.request.method).toEqual('GET');
@@ -83,7 +84,7 @@ describe('CarsService', () => {
     });
 
     const req = httpTestingController.expectOne(
-      `${environment.baseURL}/cars?limit=10&page=1`
+      `${environment.baseURL}/cars?limit=10&page=1`,
     );
 
     expect(req.request.method).toEqual('GET');

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CarFeaturesComponent } from './car-features.component';
 import { By } from '@angular/platform-browser';
+
+import { CarFeaturesComponent } from './car-features.component';
 
 describe('CarFeaturesComponent', () => {
   let component: CarFeaturesComponent;

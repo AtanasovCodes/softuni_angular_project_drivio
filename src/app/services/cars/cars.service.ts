@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { CarListResponse } from '../../../types/cars.interface';
 
 @Injectable({
@@ -22,7 +23,7 @@ export class CarsService {
     params.set('page', page.toString());
 
     return this.httpClient.get<CarListResponse>(
-      `${environment.baseURL}/cars?${params.toString()}`
+      `${environment.baseURL}/cars?${params.toString()}`,
     );
   }
 }

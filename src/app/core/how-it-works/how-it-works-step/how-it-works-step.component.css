@@ -10,7 +10,9 @@
   width: 100%;
   max-width: 320px;
   height: 240px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .how-it-works:hover {

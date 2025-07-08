@@ -3,7 +3,7 @@ import { capitalizeWords } from './car-features.utils';
 describe('capitalizeWords util function', () => {
   it('should capitalize each word in a sentence', () => {
     expect(capitalizeWords('electric autopilot luxury')).toBe(
-      'Electric Autopilot Luxury'
+      'Electric Autopilot Luxury',
     );
   });
 
@@ -17,7 +17,7 @@ describe('capitalizeWords util function', () => {
 
   it('should handle multiple spaces', () => {
     expect(capitalizeWords('multiple   spaces here')).toBe(
-      'Multiple   Spaces Here'
+      'Multiple   Spaces Here',
     );
   });
 });

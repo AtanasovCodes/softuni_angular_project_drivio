@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HowItWorksStepComponent } from './how-it-works-step.component';
-import { By } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { LucideAngularModule } from 'lucide-angular';
+
+import { HowItWorksStepComponent } from './how-it-works-step.component';
 
 import { LUCIDE_ICONS } from '../../../../constants/lucide-icons';
 
@@ -45,7 +46,7 @@ describe('HowItWorksStepComponent', () => {
     const footer = fixture.nativeElement.querySelector('footer');
     expect(header.getAttribute('aria-label')).toBe('Step: Step One');
     expect(footer.getAttribute('aria-label')).toBe(
-      'Description: This is how it works'
+      'Description: This is how it works',
     );
   });
 

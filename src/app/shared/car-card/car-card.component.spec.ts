@@ -1,8 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CarCardComponent } from './car-card.component';
-import { CarFeaturesComponent } from '../car-features/car-features.component';
 import { By } from '@angular/platform-browser';
+
+
+import { CarCardComponent } from './car-card.component';
+
 import { Car } from '../../../types/cars.interface';
+import { CarFeaturesComponent } from '../car-features/car-features.component';
 
 describe('CarCardComponent', () => {
   let component: CarCardComponent;
@@ -53,12 +56,8 @@ describe('CarCardComponent', () => {
   });
 
   it('should pass the features to app-car-features component', () => {
-    const carFeaturesComponent = fixture.debugElement.query(
-      By.directive(CarFeaturesComponent)
-    );
-    expect(carFeaturesComponent.componentInstance.features).toEqual(
-      testCar.features
-    );
+    const carFeaturesComponent = fixture.debugElement.query(By.directive(CarFeaturesComponent));
+    expect(carFeaturesComponent.componentInstance.features).toEqual(testCar.features);
   });
 
   it('should render the price per day correctly', () => {
