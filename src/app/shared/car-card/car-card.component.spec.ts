@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { provideRouter, RouterLink } from '@angular/router';
 
 import { CarCardComponent } from './car-card.component';
 
@@ -26,7 +26,8 @@ describe('CarCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CarCardComponent],
+      imports: [CarCardComponent, RouterLink],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CarCardComponent);
@@ -65,8 +66,8 @@ describe('CarCardComponent', () => {
     expect(priceEl.textContent).toBe('$120');
   });
 
-  it('should have a button with text "View Details"', () => {
-    const button = fixture.nativeElement.querySelector('button.primary');
-    expect(button.textContent).toBe('View Details');
+  it('should have a tag <a> with text "View Details"', () => {
+    const link = fixture.nativeElement.querySelector('a');
+    expect(link.textContent).toBe('View Details');
   });
 });
