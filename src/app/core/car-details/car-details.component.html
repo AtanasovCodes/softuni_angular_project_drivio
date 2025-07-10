@@ -1,0 +1,51 @@
+<section class="container">
+  @if (car) {
+    <article class="car-details" tabindex="0">
+      <!--  Left column -->
+      <div class="car-details__info" aria-label="Car details">
+        <header class="car-details__header">
+          <h1 tabindex="0">
+            {{ car.brand }} {{ car.model }}
+            <span class="car-details__year"> ({{ car.year }}) </span>
+          </h1>
+
+          <span class="sr-only"> Car status {{ car.status }} </span>
+          <app-chip [label]="car.status" color="primary" tabindex="0"> </app-chip>
+        </header>
+        <img [src]="car.image" alt="{{ car.brand }}" class="car-image" />
+      </div>
+
+      <!-- Right column -->
+      <aside class="car-details__description" tabindex="0">
+        <section class="mb-3">
+          <h3 class="mb-3">Description</h3>
+          <p tabindex="0" aria-label="Car description">{{ car.description }}</p>
+        </section>
+        <app-divider />
+        <section class="mb-3">
+          <h4 tabindex="0">Price: ${{ car.pricePerDay }} / day</h4>
+        </section>
+        <app-divider />
+        <h3 class="mb-3">Features</h3>
+        <ul class="car-details__features" tabindex="0" aria-label="Car features">
+          @for (feature of car.features; track feature) {
+            <li tabindex="0">
+              {{ feature }}
+            </li>
+          }
+        </ul>
+      </aside>
+    </article>
+    <section class="car-details__more-cars">
+      <h3 class="text-center mb-4">See more of our cars</h3>
+
+      <ul class="flex-auto">
+        @for (car of listWithMoreCars; track car) {
+          <li>
+            <app-car-card [car]="car" />
+          </li>
+        }
+      </ul>
+    </section>
+  }
+</section>

@@ -224,3 +224,33 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+/* GRID */
+.flex-auto {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  padding: 0;
+}
+
+.flex-auto > * {
+  flex-basis: 30%;
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .flex-auto > * {
+    flex-basis: 45%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .flex-auto > * {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+}

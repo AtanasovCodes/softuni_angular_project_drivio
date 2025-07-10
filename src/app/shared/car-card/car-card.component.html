@@ -10,8 +10,10 @@
       </p>
     </header>
     <div class="divider"></div>
-    <app-car-features [features]="car.features"></app-car-features>
+    <footer class="car-footer">
+      <app-car-features [features]="car.features"></app-car-features>
 
-    <a class="primary" routerLink="/cars/details/{{ car.id }}">View Details</a>
+      <a class="primary" routerLink="/cars/details/{{ car.id }}">View Details</a>
+    </footer>
   </section>
 </article>
