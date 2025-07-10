@@ -1,23 +1,7 @@
-.how-it-works-section ul {
+.how-it-works-section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
-}
-
-.how-it-works-section ul li {
-  width: 33.3333%;
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-width: 768px) {
-  .how-it-works-section ul li {
-    width: 100%;
-  }
-  .how-it-works-section ul {
-    flex-direction: column;
-    align-items: center;
-  }
 }

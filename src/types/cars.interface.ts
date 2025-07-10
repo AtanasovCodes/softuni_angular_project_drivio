@@ -24,3 +24,4 @@ export interface CarListResponse {
   data: Car[];
   pagination: Pagination;
 }
+

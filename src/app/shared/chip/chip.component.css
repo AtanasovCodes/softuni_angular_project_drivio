@@ -1,0 +1,27 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+.chip-primary {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.chip-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.chip-disabled {
+  background-color: var(--disabled-color);
+  color: white;
+  pointer-events: none;
+}
