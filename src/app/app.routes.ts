@@ -4,6 +4,7 @@ import { CarDetailsComponent } from './core/car-details/car-details.component';
 import { CarsComponent } from './core/cars/cars.component';
 import { ContactsComponent } from './core/contacts/contacts.component';
 import { HomeComponent } from './core/home/home.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,5 +20,10 @@ export const routes: Routes = [
   {
     path: 'contacts',
     component: ContactsComponent,
+  },
+
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
