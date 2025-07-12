@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 
-import { LucideIconName } from '../../../../constants/lucide-icons';
+import { LucideIconName } from '../../../../constants/lucide-icons.constants';
 
 @Component({
   selector: 'app-how-it-works-step',

@@ -9,7 +9,7 @@ import { LucideAngularModule } from 'lucide-angular';
 
 import { routes } from './app.routes';
 
-import { LUCIDE_ICONS } from '../constants/lucide-icons';
+import { LUCIDE_ICONS } from '../constants/lucide-icons.constants';
 
 
 export const appConfig: ApplicationConfig = {

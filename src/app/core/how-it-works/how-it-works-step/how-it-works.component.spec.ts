@@ -5,7 +5,7 @@ import { LucideAngularModule } from 'lucide-angular';
 
 import { HowItWorksStepComponent } from './how-it-works-step.component';
 
-import { LUCIDE_ICONS } from '../../../../constants/lucide-icons';
+import { LUCIDE_ICONS } from '../../../../constants/lucide-icons.constants';
 
 describe('HowItWorksStepComponent', () => {
   let component: HowItWorksStepComponent;
