@@ -1,6 +1,9 @@
+import { paths } from 'constants/paths.constants';
+
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Routes } from '@angular/router';
+import { UserService } from 'app/user/services/user.service';
 
 import { NavLinksComponent } from './nav-links.component';
 
@@ -15,30 +18,54 @@ describe('NavLinksComponent', () => {
     { path: '', component: DummyComponent },
     { path: 'cars', component: DummyComponent },
     { path: 'contacts', component: DummyComponent },
+    { path: 'users/login', component: DummyComponent },
+    { path: 'users/profile', component: DummyComponent },
   ];
 
+  let mockUserService: { isLoggedIn: boolean };
+
   beforeEach(async () => {
+    mockUserService = { isLoggedIn: false };
+
     await TestBed.configureTestingModule({
       imports: [NavLinksComponent],
-      providers: [provideRouter(testRoutes)],
-      // We need a dummy component to satisfy the router's requirements
       declarations: [DummyComponent],
+      providers: [provideRouter(testRoutes), { provide: UserService, useValue: mockUserService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavLinksComponent);
-    fixture.detectChanges();
     element = fixture.nativeElement;
   });
 
-  it('should render 3 nav links', () => {
+  it('should render 4 nav links', () => {
+    fixture.detectChanges();
     const links = element.querySelectorAll('a');
-    expect(links.length).toBe(3);
+    expect(links.length).toBe(4);
   });
 
   it('should link to correct routes', () => {
+    fixture.detectChanges();
     const links = element.querySelectorAll('a');
-    expect(links[0].getAttribute('ng-reflect-router-link')).toBe('/');
-    expect(links[1].getAttribute('ng-reflect-router-link')).toBe('/cars');
-    expect(links[2].getAttribute('ng-reflect-router-link')).toBe('/contacts');
+    expect(links[0].getAttribute('ng-reflect-router-link')).toBe(`/${paths.home}`);
+    expect(links[1].getAttribute('ng-reflect-router-link')).toBe(`/${paths.cars}`);
+    expect(links[2].getAttribute('ng-reflect-router-link')).toBe(`/${paths.contacts}`);
+  });
+
+  it('should show login link when not logged in', () => {
+    mockUserService.isLoggedIn = false;
+    fixture.detectChanges();
+
+    const loginLink = element.querySelector('a[title="Login"]');
+    expect(loginLink).toBeTruthy();
+    expect(loginLink?.getAttribute('ng-reflect-router-link')).toBe(`/${paths.login}`);
+  });
+
+  it('should show profile link when logged in', () => {
+    mockUserService.isLoggedIn = true;
+    fixture.detectChanges();
+
+    // const profileLink = element.querySelector('a[title="View Profile"]');
+    const profileButton = element.querySelector('app-profile-dropdown');
+    expect(profileButton).toBeTruthy();
   });
 });
