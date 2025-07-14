@@ -1,3 +1,5 @@
+import { paths } from 'constants/paths.constants';
+
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -14,4 +16,5 @@ import { DividerComponent } from '../divider/divider.component';
 })
 export class CarCardComponent {
   @Input() car!: Car;
+  paths = paths;
 }

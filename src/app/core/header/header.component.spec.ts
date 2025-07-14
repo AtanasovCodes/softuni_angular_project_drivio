@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, RouterLink } from '@angular/router';
+import { UserService } from 'app/user/services/user.service';
 
 import { HeaderComponent } from './header.component';
 
@@ -14,10 +15,15 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let element: HTMLElement;
 
+  const mockUserService = {
+    isLoggedIn: false,
+    getUser: () => null,
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HeaderComponent, MockLogoComponent, MockNavLinksComponent, RouterLink],
-      providers: [provideRouter([])],
+      providers: [provideRouter([]), { provide: UserService, useValue: mockUserService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);

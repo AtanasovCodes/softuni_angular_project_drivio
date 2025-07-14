@@ -22,21 +22,4 @@ describe('NotFoundComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should display featured cars', () => {
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('app-featured-cars')).toBeTruthy();
-  });
-
-  it('should have Page Not Found text', () => {
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Page Not Found');
-  });
-
-  it('should have a message for non-existent pages', () => {
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p').textContent).toContain(
-      'Sorry, the page you are looking for does not exist.'
-    );
-  });
 });

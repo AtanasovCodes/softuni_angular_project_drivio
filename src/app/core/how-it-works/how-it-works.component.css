@@ -5,3 +5,11 @@
   align-items: center;
   gap: 20px;
 }
+
+.how-it-works-section img {
+  width: 100%;
+  height: 500px;
+  margin: 0 auto;
+  display: block;
+  object-fit: contain;
+}

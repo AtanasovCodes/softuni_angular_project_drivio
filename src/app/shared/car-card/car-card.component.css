@@ -1,7 +1,3 @@
-.car-name {
-  color: var(--secondary-color);
-}
-
 .car-card {
   background-color: #fff;
   border-radius: var(--border-radius);

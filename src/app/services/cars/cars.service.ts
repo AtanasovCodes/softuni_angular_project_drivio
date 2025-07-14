@@ -23,6 +23,7 @@ export class CarsService {
     const params = new URLSearchParams();
     params.set('limit', limit.toString());
     params.set('page', page.toString());
+
     if (excludeId) {
       params.set('excludeId', excludeId);
     }
