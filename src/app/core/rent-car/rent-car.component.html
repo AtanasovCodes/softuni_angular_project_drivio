@@ -1,0 +1,21 @@
+<section class="container rent-car-container spacer">
+  <aside class="rent-car-details" aria-label="Car details">
+    <img
+      [src]="carDetails?.image"
+      alt="{{ carDetails?.brand }} {{ carDetails?.model }}"
+      class="car-image"
+    />
+  </aside>
+  <form class="rent-car-form">
+    <label for="rentalDuration">Rental Duration (days):</label>
+    <input type="number" id="rentalDuration" name="rentalDuration" min="1" required />
+    <input type="hidden" name="carId" [value]="carDetails?.id" />
+    <label for="userName">Your Name:</label>
+    <input type="text" id="userName" name="userName" required />
+    <label for="userEmail">Your Email:</label>
+    <input type="email" id="userEmail" name="userEmail" required />
+    <label for="userPhone">Your Phone:</label>
+    <input type="tel" id="userPhone" name="userPhone" required />
+    <button class="primary">Rent Car</button>
+  </form>
+</section>

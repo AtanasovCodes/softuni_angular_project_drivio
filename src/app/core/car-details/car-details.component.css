@@ -50,6 +50,10 @@
   list-style: none;
 }
 
+.car-details__actions {
+  margin: 1.5rem 0;
+}
+
 .car-details__features li::before {
   content: '';
   position: absolute;

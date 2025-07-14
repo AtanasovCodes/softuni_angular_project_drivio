@@ -6,6 +6,7 @@ export const paths = {
   logout: 'logout',
   home: 'home',
   cars: 'cars',
+  rentCar: (id: string) => `rent/${id}`,
   carDetails: (id: string) => `cars/details/${id}`,
   contacts: 'contacts',
   notFound: 'not-found',

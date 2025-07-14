@@ -2,8 +2,8 @@
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  border-radius: 16px;
   font-size: 0.875rem;
+  border-radius: 2px;
   font-weight: 500;
   cursor: pointer;
   transition:
@@ -24,4 +24,14 @@
   background-color: var(--disabled-color);
   color: white;
   pointer-events: none;
+}
+
+.chip-success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.chip-danger {
+  background-color: var(--error-color);
+  color: white;
 }

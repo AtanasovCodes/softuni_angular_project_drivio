@@ -8,6 +8,7 @@ import { ContactsComponent } from './core/contacts/contacts.component';
 import { HomeComponent } from './core/home/home.component';
 import { LogoutComponent } from './core/logout/logout.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
+import { RentCarComponent } from './core/rent-car/rent-car.component';
 import { LoginComponent } from './user/login/login.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { RegisterComponent } from './user/register/register.component';
@@ -45,6 +46,10 @@ export const routes: Routes = [
     ],
   },
   {
+    path: `${paths.rentCar(':id')}`,
+    component: RentCarComponent,
+  },
+  {
     path: `${paths.logout}`,
     component: LogoutComponent,
   },
@@ -52,6 +57,7 @@ export const routes: Routes = [
     path: `${paths.notFound}`,
     component: NotFoundComponent,
   },
+
   {
     path: '**',
     redirectTo: '/not-found',

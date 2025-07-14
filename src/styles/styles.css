@@ -12,6 +12,7 @@
   --main-color: #3a6ff8;
   --secondary-color: #1746a2;
   --error-color: #ff4d4f;
+  --success-color: #52c41a;
   --border-color: #e0e0e0;
   --border-radius: 8px;
 }
@@ -68,6 +69,24 @@ button {
 
 /* ===== Buttons ===== */
 
+a.error,
+button.error {
+  background-color: var(--error-color);
+  display: flex;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all ease-in-out 0.3s;
+}
+
+a.error:hover,
+button.error:hover {
+  opacity: 0.8;
+}
+
 a.primary,
 button.primary {
   margin-top: 1rem;
@@ -123,3 +142,4 @@ textarea::placeholder,
 select::placeholder {
   font-size: 0.9rem;
 }
+
