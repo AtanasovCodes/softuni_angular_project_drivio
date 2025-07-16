@@ -16,7 +16,7 @@
 
 .rent-car-container .rent-car-details img {
   width: 100%;
-  height: auto;
+  height: 600px;
   border-radius: 8px;
   object-fit: cover;
   object-position: center;

@@ -5,6 +5,7 @@ import { Routes } from '@angular/router';
 import { CarDetailsComponent } from './core/car-details/car-details.component';
 import { CarsComponent } from './core/cars/cars.component';
 import { ContactsComponent } from './core/contacts/contacts.component';
+import { CarAvailabilityGuard } from './core/guards/car-availabilitty.guard';
 import { LoginGuard } from './core/guards/login.guard';
 import { HomeComponent } from './core/home/home.component';
 import { LogoutComponent } from './core/logout/logout.component';
@@ -50,7 +51,7 @@ export const routes: Routes = [
   {
     path: `${paths.rentCar(':id')}`,
     component: RentCarComponent,
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard, CarAvailabilityGuard],
   },
   {
     path: `${paths.logout}`,

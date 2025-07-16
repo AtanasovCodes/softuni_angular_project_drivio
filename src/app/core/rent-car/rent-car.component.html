@@ -6,16 +6,38 @@
       class="car-image"
     />
   </aside>
-  <form class="rent-car-form">
+  <form [formGroup]="rentCarForm" class="rent-car-form">
+    <h1 class="mb-3">
+      Rent {{ carDetails?.brand }} {{ carDetails?.model }} {{ carDetails?.year }}
+    </h1>
+    <p class="mb-4">Fill in the details below to rent this car.</p>
     <label for="rentalDuration">Rental Duration (days):</label>
-    <input type="number" id="rentalDuration" name="rentalDuration" min="1" required />
-    <input type="hidden" name="carId" [value]="carDetails?.id" />
+    <input
+      type="number"
+      id="rentalDuration"
+      name="rentalDuration"
+      min="1"
+      required
+      formControlName="rentalDuration"
+    />
+    @if (isFieldInvalid('rentalDuration')) {
+      <span class="error">Rental duration must be at least 1 day.</span>
+    }
     <label for="userName">Your Name:</label>
-    <input type="text" id="userName" name="userName" required />
+    <input type="text" id="userName" name="userName" required formControlName="userName" />
+    @if (isFieldInvalid('userName')) {
+      <span class="error">Name is required and must be at least 2 characters long.</span>
+    }
     <label for="userEmail">Your Email:</label>
-    <input type="email" id="userEmail" name="userEmail" required />
+    <input type="email" id="userEmail" name="userEmail" required formControlName="userEmail" />
+    @if (isEmailInvalid('userEmail')) {
+      <span class="error">Please enter a valid email address.</span>
+    }
     <label for="userPhone">Your Phone:</label>
-    <input type="tel" id="userPhone" name="userPhone" required />
-    <button class="primary">Rent Car</button>
+    <input type="tel" id="userPhone" name="userPhone" required formControlName="userPhone" />
+    @if (isFieldInvalid('userPhone')) {
+      <span class="error">Please enter a valid phone number.</span>
+    }
+    <button class="primary" [disabled]="rentCarForm.invalid" (click)="onSubmit()">Rent Car</button>
   </form>
 </section>
