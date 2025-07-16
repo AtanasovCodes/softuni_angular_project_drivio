@@ -20,15 +20,14 @@ export class ProfileComponent implements OnInit {
   user: User | null = null;
 
   ngOnInit(): void {
-    // this.userService.getMe().subscribe({
-    //   next: (user) => {
-    //     this.user = user;
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching user data:', err);
-    //     this.user = null;
-    //   },
-    // });
+    this.userService.getMe().subscribe({
+      next: (user) => {
+        this.user = user;
+      },
+      error: (error) => {
+        console.error('Error fetching user data:', error);
+      },
+    });
   }
 
   toggleEditMode(): void {

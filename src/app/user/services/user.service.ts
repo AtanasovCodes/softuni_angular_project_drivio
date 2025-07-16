@@ -41,6 +41,14 @@ export class UserService {
     return this.user;
   }
 
+  getMe() {
+    return this.httpClient.get<User>(`${environment.baseURL}/me`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN_KEY)}`,
+      },
+    });
+  }
+
   clearUser() {
     this.user = null;
     localStorage.removeItem(LOCAL_STORAGE_KEYS.TOKEN_KEY);
