@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CustomValidators } from 'app/shared/validators/custom-validators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-contacts',
@@ -10,11 +12,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 })
 export class ContactsComponent {
   private fb = inject(FormBuilder);
+  private toastr = inject(ToastrService);
 
   contactForm = this.fb.group({
-    name: ['', Validators.minLength(2)],
-    email: ['', [Validators.email]],
-    message: ['', Validators.minLength(10)],
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    email: new FormControl('', [Validators.required, CustomValidators.emailValidator]),
+    message: new FormControl('', [Validators.minLength(10)]),
   });
 
   get name() {
@@ -29,12 +32,25 @@ export class ContactsComponent {
     return this.contactForm.get('message')!;
   }
 
+  isFieldInvalid(controlName: keyof typeof this.contactForm.controls) {
+    const control = this.contactForm.get(controlName);
+    return control && control.errors && control.touched;
+  }
+
+  isEmailInvalid(controlName: keyof typeof this.contactForm.controls) {
+    const control = this.contactForm.get(controlName);
+    return control && control.errors && control.errors['pattern'] && control.touched;
+  }
+
   onSubmit(): void {
     if (this.contactForm.valid) {
       const { name, email, message } = this.contactForm.value;
       console.log('Contact Form Submitted:', { name, email, message });
+      this.toastr.success('Message sent successfully', 'Thank you!');
     } else {
-      console.error('Contact Form is invalid');
+      this.toastr.error('Please fill out the form correctly', 'Error');
     }
+
+    this.contactForm.reset();
   }
 }

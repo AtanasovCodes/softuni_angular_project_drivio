@@ -2,8 +2,16 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { RegisterComponent } from './register.component';
+
+class MockToastrService {
+  success = jasmine.createSpy('success');
+  error = jasmine.createSpy('error');
+  warning = jasmine.createSpy('warning');
+  info = jasmine.createSpy('info');
+}
 
 describe('RegisterComponent', () => {
   let fixture: ComponentFixture<RegisterComponent>;
@@ -17,6 +25,7 @@ describe('RegisterComponent', () => {
         provideRouter([]),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
+        { provide: ToastrService, useClass: MockToastrService },
       ],
     }).compileComponents();
 
@@ -52,6 +61,8 @@ describe('RegisterComponent', () => {
     firstNameInput.value = 'A';
     firstNameInput.dispatchEvent(new Event('input'));
 
+    component.firstName.markAsTouched();
+
     fixture.detectChanges();
     const errorMessage = fixture.nativeElement.querySelector('.error');
     expect(errorMessage).toBeTruthy();
@@ -84,6 +95,8 @@ describe('RegisterComponent', () => {
     emailInput.value = 'invalid-email';
     emailInput.dispatchEvent(new Event('input'));
 
+    component.email.markAsTouched();
+
     fixture.detectChanges();
     const errorMessage = fixture.nativeElement.querySelector('.error');
     expect(errorMessage).toBeTruthy();
@@ -103,6 +116,8 @@ describe('RegisterComponent', () => {
     const passwordInput = fixture.nativeElement.querySelector('input[type="password"]');
     passwordInput.value = '123';
     passwordInput.dispatchEvent(new Event('input'));
+
+    component.password.markAsTouched();
 
     fixture.detectChanges();
     const errorMessage = fixture.nativeElement.querySelector('.error');
@@ -133,6 +148,8 @@ describe('RegisterComponent', () => {
     confirmPasswordInput.value = 'differentPassword';
     passwordInput.dispatchEvent(new Event('input'));
     confirmPasswordInput.dispatchEvent(new Event('input'));
+
+    component.confirmPassword.markAsTouched();
 
     component.registerForm.get('confirmPassword')?.markAsTouched();
 

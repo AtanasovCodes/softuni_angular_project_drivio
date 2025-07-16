@@ -5,17 +5,18 @@
   <div class="contact-form-container">
     <h1 class="mb-3">Contact Us</h1>
     <p class="mb-4">If you have any questions, feel free to reach out to us.</p>
-    <form [formGroup]="contactForm" class="contact-form">
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
       <input type="text" placeholder="Name" formControlName="name" />
-      @if (contactForm.get('name')?.errors?.['minlength']) {
+      @if (isFieldInvalid('name')) {
         <span class="error">Name must be at least 2 characters long.</span>
       }
       <input type="text" placeholder="Email" formControlName="email" />
-      @if (contactForm.get('email')?.errors?.['email']) {
+
+      @if (isEmailInvalid('email')) {
         <span class="error">Please enter a valid email address.</span>
       }
       <textarea placeholder="Your Message" rows="4" formControlName="message"></textarea>
-      @if (contactForm.get('message')?.errors?.['minlength']) {
+      @if (isFieldInvalid('message')) {
         <span class="error">Message must be at least 10 characters long.</span>
       }
       <button class="primary" [disabled]="contactForm.invalid">Submit</button>

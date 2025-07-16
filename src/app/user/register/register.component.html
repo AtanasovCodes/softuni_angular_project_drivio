@@ -9,34 +9,34 @@
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
       <input type="text" placeholder="First Name" formControlName="firstName" />
-      @if (registerForm.get('firstName')?.errors?.['minlength']) {
+      @if (isFieldInvalid('firstName')) {
         <span class="error">First name must be at least 2 characters long.</span>
       }
       <input type="text" placeholder="Last Name" formControlName="lastName" />
-      @if (registerForm.get('lastName')?.errors?.['minlength']) {
+      @if (isFieldInvalid('lastName')) {
         <span class="error">Last name must be at least 2 characters long.</span>
       }
       <input type="text" placeholder="Phone Number" formControlName="phoneNumber" />
-      @if (registerForm.get('phoneNumber')?.errors?.['pattern']) {
+      @if (isFieldInvalid('phoneNumber')) {
         <span class="error">Please enter a valid phone number.</span>
       }
       <input type="email" placeholder="Email" formControlName="email" />
-      @if (registerForm.get('email')?.errors?.['email']) {
+
+      @if (isEmailInvalid('email')) {
         <span class="error">Please enter a valid email address.</span>
       }
-      <input type="password" placeholder="Password" formControlName="password" />
-      @if (registerForm.get('password')?.errors?.['minlength']) {
-        <span class="error">Password must be at least 6 characters long.</span>
-      }
-      <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
-      @if (
-        registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched
-      ) {
-        <span class="error">Passwords must match.</span>
-      }
-      @if (registerError) {
-        <span class="error">{{ registerError }}</span>
-      }
+
+      <div formGroupName="passwordGroup" class="password-group">
+        <input type="password" placeholder="Password" formControlName="password" />
+        @if (isFieldInvalid('passwordGroup.password')) {
+          <span class="error">Password must be at least 6 characters long.</span>
+        }
+        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
+        @if (isPasswordMismatch()) {
+          <span class="error">Passwords must match.</span>
+        }
+      </div>
+
       <button class="primary" [disabled]="registerForm.invalid">Register</button>
     </form>
   </div>

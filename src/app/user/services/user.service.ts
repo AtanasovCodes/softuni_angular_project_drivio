@@ -3,6 +3,7 @@ import { LOCAL_STORAGE_KEYS } from 'constants/local-storage';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
+import { tap } from 'rxjs';
 import { User, UserResponse } from 'types/user.interface';
 
 @Injectable({
@@ -47,7 +48,11 @@ export class UserService {
   }
 
   login(credentials: { email: string; password: string }) {
-    return this.httpClient.post<UserResponse>(`${environment.baseURL}/login`, credentials);
+    return this.httpClient.post<UserResponse>(`${environment.baseURL}/login`, credentials).pipe(
+      tap((response: UserResponse) => {
+        this.setUser(response.user, response.token);
+      })
+    );
   }
 
   register(userData: {
@@ -57,6 +62,10 @@ export class UserService {
     email: string;
     password: string;
   }) {
-    return this.httpClient.post<UserResponse>(`${environment.baseURL}/register`, userData);
+    return this.httpClient.post<UserResponse>(`${environment.baseURL}/register`, userData).pipe(
+      tap((response: UserResponse) => {
+        this.setUser(response.user, response.token);
+      })
+    );
   }
 }

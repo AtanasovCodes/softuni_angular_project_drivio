@@ -32,6 +32,12 @@
   gap: 1.5rem;
 }
 
+.register-form .password-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 @media (max-width: 768px) {
   .register {
     flex-direction: column-reverse;
