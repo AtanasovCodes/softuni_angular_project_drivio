@@ -12,17 +12,16 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
       <input type="email" placeholder="Email" formControlName="email" required />
-      @if (loginForm.get('email')?.errors?.['email']) {
+
+      @if (isEmailInvalid('email')) {
         <span class="error">Please enter a valid email address.</span>
       }
       <input type="password" placeholder="Password" formControlName="password" required />
 
-      @if (loginForm.get('password')?.errors?.['minlength']) {
+      @if (isFieldInvalid('password')) {
         <span class="error">Password must be at least 6 characters long.</span>
       }
-      @if (loginError) {
-        <span class="error">{{ loginError }}</span>
-      }
+
       <button class="primary" [disabled]="loginForm.invalid">Login</button>
     </form>
   </div>

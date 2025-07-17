@@ -1,1 +1,17 @@
-<section class="container"></section>
+<section class="container spacer">
+  <div class="toggle-container">
+    <span class="toggle-label">{{ inEditMode ? 'Edit Mode' : 'View Mode' }}</span>
+    <label class="toggle-switch" aria-label="Toggle Edit Mode">
+      <input type="checkbox" [checked]="inEditMode" (change)="toggleEditMode()" />
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  @if (user) {
+    @if (inEditMode) {
+      <app-user-edit-form></app-user-edit-form>
+    } @else {
+      <app-user-info [user]="user"></app-user-info>
+    }
+  }
+</section>

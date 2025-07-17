@@ -46,8 +46,6 @@
   gap: 10px;
 }
 
-/* Make the a tag in car-footer to take the full width on mobile */
-
 @media (max-width: 600px) {
   .car-footer a.primary {
     width: 100%;

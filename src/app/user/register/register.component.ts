@@ -2,14 +2,15 @@ import { paths } from 'constants/paths.constants';
 
 import { Component, inject } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
+  FormControl,
+  FormGroup,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { User } from 'types/user.interface';
+import { CustomValidators } from 'app/shared/validators/custom-validators';
+import { ToastrService } from 'ngx-toastr';
 
 import { UserService } from '../services/user.service';
 
@@ -26,23 +27,28 @@ export class RegisterComponent {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
 
-  registerError: string | null = null;
   passwordMismatch = false;
 
-  registerForm = this.fb.group(
-    {
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
-    },
-    {
-      validators: this.passwordMatchValidator(),
-    }
-  );
+  registerForm = this.fb.group({
+    firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    phoneNumber: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^\+?[0-9]{10,15}$/),
+    ]),
+    email: new FormControl('', [Validators.required, CustomValidators.emailValidator]),
+    passwordGroup: new FormGroup(
+      {
+        password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        confirmPassword: new FormControl('', [Validators.required]),
+      },
+      {
+        validators: CustomValidators.fieldsMatch('password', 'confirmPassword'),
+      }
+    ),
+  });
 
   get firstName() {
     return this.registerForm.get('firstName')!;
@@ -60,56 +66,63 @@ export class RegisterComponent {
   }
 
   get password() {
-    return this.registerForm.get('password')!;
+    return this.registerForm.get('passwordGroup.password')!;
   }
 
   get confirmPassword() {
-    return this.registerForm.get('confirmPassword')!;
+    return this.registerForm.get('passwordGroup.confirmPassword')!;
   }
 
-  passwordMatchValidator(): (control: AbstractControl) => ValidationErrors | null {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const password = control.get('password')?.value;
-      const confirmPassword = control.get('confirmPassword')?.value;
-      return password && confirmPassword && password !== confirmPassword
-        ? { passwordMismatch: true }
-        : null;
-    };
+  get passwordGroup(): FormGroup {
+    return this.registerForm.get('passwordGroup') as FormGroup;
+  }
+
+  isFieldInvalid(controlPath: string) {
+    const control = this.registerForm.get(controlPath);
+    return !!(control && control.invalid && control.touched);
+  }
+
+  isEmailInvalid(controlName: keyof typeof this.registerForm.controls) {
+    const control = this.registerForm.get(controlName);
+    return control && control.errors && control.errors['pattern'] && control.touched;
+  }
+
+  isPasswordMismatch() {
+    return this.passwordGroup.hasError('fieldsMismatch') && this.confirmPassword.touched;
   }
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      const { firstName, lastName, phoneNumber, email, password } = this.registerForm.value as {
+      const { firstName, lastName, phoneNumber, email } = this.registerForm.value as {
         firstName: string;
         lastName: string;
         phoneNumber: string;
         email: string;
-        password: string;
       };
 
-      this.userService.register({ firstName, lastName, phoneNumber, email, password }).subscribe({
-        next: (res) => {
-          const userData: User = {
-            id: res.user.id,
-            firstName: res.user.firstName,
-            lastName: res.user.lastName,
-            email: res.user.email,
-            phone: res.user.phone,
-          };
-          this.userService.setUser(userData, res.token);
-          this.router.navigate([paths.home]);
-        },
-        error: (err) => {
-          console.log(err);
-          if (err.status === 400) {
-            this.registerError = 'Invalid registration data';
-          } else if (err.status === 500) {
-            this.registerError = 'Server error, please try again later';
-          } else if (err.status === 409) {
-            this.registerError = 'Email already exists';
-          }
-        },
-      });
+      this.userService
+        .register({
+          firstName,
+          lastName,
+          phoneNumber,
+          email,
+          password: this.password.value as string,
+        })
+        .subscribe({
+          next: () => {
+            this.toastr.success('Registration successful', 'Welcome');
+            this.router.navigate([paths.home]);
+          },
+          error: (err) => {
+            if (err.status === 400) {
+              this.toastr.error('Invalid registration data', 'Registration Failed');
+            } else if (err.status === 500) {
+              this.toastr.error('Server error, please try again later', 'Registration Failed');
+            } else if (err.status === 409) {
+              this.toastr.error('Email already exists', 'Registration Failed');
+            }
+          },
+        });
     }
   }
 }

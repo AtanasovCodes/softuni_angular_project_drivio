@@ -2,8 +2,16 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { LoginComponent } from './login.component';
+
+class MockToastrService {
+  success = jasmine.createSpy('success');
+  error = jasmine.createSpy('error');
+  warning = jasmine.createSpy('warning');
+  info = jasmine.createSpy('info');
+}
 
 describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
@@ -17,6 +25,8 @@ describe('LoginComponent', () => {
         provideRouter([]),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
+
+        { provide: ToastrService, useClass: MockToastrService },
       ],
     }).compileComponents();
 
@@ -48,6 +58,8 @@ describe('LoginComponent', () => {
     emailInput.value = 'invalid-email';
     emailInput.dispatchEvent(new Event('input'));
 
+    component.email.markAsTouched();
+
     fixture.detectChanges();
     const errorMessage = fixture.nativeElement.querySelector('.error');
     expect(errorMessage).toBeTruthy();
@@ -67,6 +79,8 @@ describe('LoginComponent', () => {
     const passwordInput = fixture.nativeElement.querySelector('input[type="password"]');
     passwordInput.value = '123';
     passwordInput.dispatchEvent(new Event('input'));
+
+    component.password.markAsTouched();
 
     fixture.detectChanges();
     const errorMessage = fixture.nativeElement.querySelector('.error');

@@ -1,24 +1,33 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { paths } from 'constants/paths.constants';
+
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CarsService } from 'app/services/cars/cars.service';
+import { MetaService } from 'app/services/meta/meta.service';
 import { CarCardComponent } from 'app/shared/car-card/car-card.component';
 import { ChipComponent } from 'app/shared/chip/chip.component';
 import { DividerComponent } from 'app/shared/divider/divider.component';
+import { UserService } from 'app/user/services/user.service';
 import { Car } from 'types/cars.interface';
 
 @Component({
   selector: 'app-car-details-component',
   standalone: true,
-  imports: [ChipComponent, DividerComponent, CarCardComponent],
+  imports: [ChipComponent, DividerComponent, RouterLink, CarCardComponent],
   templateUrl: './car-details.component.html',
   styleUrl: './car-details.component.css',
 })
-export class CarDetailsComponent {
+export class CarDetailsComponent implements OnInit, OnDestroy {
   private carsService = inject(CarsService);
+  private userService = inject(UserService);
   private activatedRoute = inject(ActivatedRoute);
+  private metaService = inject(MetaService);
 
   car: Car | null = null;
   listWithMoreCars: Car[] = [];
+  paths = paths;
+
+  isLoggedIn = this.userService.isLoggedIn;
 
   getCarDetails(carId: string) {
     return this.carsService.getCarById(carId);
@@ -34,11 +43,22 @@ export class CarDetailsComponent {
 
       this.getCarDetails(carId).subscribe((carDetails) => {
         this.car = carDetails;
+
+        this.metaService.setMetaTags({
+          title: `Drivio - ${this.car?.brand} ${this.car?.model}`,
+          description: this.car?.description || 'Rent a car easily with Drivio',
+          image: this.car ? this.car.image : '/assets/images/drivio.webp',
+          type: 'article',
+        });
       });
 
       this.carsService.getAllCars({ limit: 3, excludeId: carId }).subscribe((cars) => {
         this.listWithMoreCars = cars.data;
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.metaService.setMetaTags();
   }
 }

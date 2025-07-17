@@ -1,10 +1,11 @@
 import { paths } from 'constants/paths.constants';
 
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { CustomValidators } from 'app/shared/validators/custom-validators';
 import { UserService } from 'app/user/services/user.service';
-import { User } from 'types/user.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +20,11 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
-
-  loginError: string | null = null;
+  private toastr = inject(ToastrService);
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    email: new FormControl('', [Validators.required, CustomValidators.emailValidator]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
   get email() {
@@ -35,30 +35,32 @@ export class LoginComponent {
     return this.loginForm.get('password')!;
   }
 
+  isFieldInvalid(controlName: keyof typeof this.loginForm.controls) {
+    const control = this.loginForm.get(controlName);
+    return control && control.errors && control.touched;
+  }
+
+  isEmailInvalid(controlName: keyof typeof this.loginForm.controls) {
+    const control = this.loginForm.get(controlName);
+    return control && control.errors && control.errors['pattern'] && control.touched;
+  }
+
   onSubmit(): void {
     if (this.loginForm.valid) {
       const email = this.email.value as string;
       const password = this.password.value as string;
 
       this.userService.login({ email, password }).subscribe({
-        next: (res) => {
-          const userData: User = {
-            id: res.user.id,
-            firstName: res.user.firstName,
-            lastName: res.user.lastName,
-            email: res.user.email,
-            phone: res.user.phone,
-          };
-          this.userService.setUser(userData, res.token);
+        next: () => {
+          this.toastr.success('Login successful', 'Welcome');
           this.router.navigate([paths.home]);
         },
         error: (err) => {
           if (err.status === 401) {
-            this.loginError = 'Invalid credentials';
+            this.toastr.error('Invalid credentials', 'Login Failed');
           } else if (err.status === 500) {
-            this.loginError = 'Server error, please try again later';
+            this.toastr.error('Server error, please try again later', 'Login Failed');
           }
-          console.error(err);
         },
       });
     }

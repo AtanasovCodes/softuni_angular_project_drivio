@@ -10,7 +10,13 @@
           </h1>
 
           <span class="sr-only"> Car status {{ car.status }} </span>
-          <app-chip [label]="car.status" color="primary" tabindex="0"> </app-chip>
+
+          <app-chip
+            [label]="car.status"
+            [color]="car.status === 'free' ? 'success' : 'danger'"
+            tabindex="0"
+          >
+          </app-chip>
         </header>
         <img [src]="car.image" alt="{{ car.brand }}" class="car-image" />
       </div>
@@ -34,6 +40,35 @@
             </li>
           }
         </ul>
+        @if (car.status === 'rented') {
+          <strong class="mt-4 block"
+            >This car is currently rented. Feel free to check other
+            <span class="text-primary underline cursor-pointer" routerLink="/{{ paths.cars }}">
+              <a routerLink="{{ paths.cars }}"></a>
+              cars.
+            </span>
+          </strong>
+        }
+        <footer class="car-details__actions">
+          @if (isLoggedIn && car.status === 'free') {
+            <button
+              class="primary"
+              routerLink="/{{ paths.rentCar(car.id.toString()) }}"
+              aria-label="Rent this car"
+            >
+              Rent this car
+            </button>
+          }
+          @if (!isLoggedIn && car.status === 'free') {
+            <button
+              class="error my-4"
+              routerLink="/{{ paths.login }}"
+              aria-label="Login to rent this car"
+            >
+              Login to rent this car
+            </button>
+          }
+        </footer>
       </aside>
     </article>
     <section class="car-details__more-cars">

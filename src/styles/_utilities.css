@@ -225,6 +225,27 @@
   border: 0;
 }
 
+.error {
+  color: var(--error-color);
+  font-size: 0.8rem;
+}
+
+.block {
+  display: block;
+}
+
+.text-primary {
+  color: var(--main-color);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 /* GRID */
 .flex-auto {
   display: flex;
@@ -253,9 +274,4 @@
     flex-basis: 100%;
     min-width: 0;
   }
-}
-
-.error {
-  color: var(--error-color);
-  font-size: 0.8rem;
 }

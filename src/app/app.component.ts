@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { FooterComponent } from './core/footer/footer.component';
 import { HeaderComponent } from './core/header/header.component';
-import { ScrollToTopComponent } from "./shared/scroll-to-top-btn/scroll-to-top-btn.component";
+import { MetaService } from './services/meta/meta.service';
+import { ScrollToTopComponent } from './shared/scroll-to-top-btn/scroll-to-top-btn.component';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,9 @@ import { ScrollToTopComponent } from "./shared/scroll-to-top-btn/scroll-to-top-b
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title = 'drivio';
+  private metaService = inject(MetaService);
 
   ngOnInit() {
-    // Initialization logic here
+    this.metaService.setMetaTags();
   }
 }
