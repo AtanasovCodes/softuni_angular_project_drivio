@@ -8,7 +8,6 @@ import { ContactsComponent } from './core/contacts/contacts.component';
 import { CarAvailabilityGuard } from './core/guards/car-availabilitty.guard';
 import { LoginGuard } from './core/guards/login.guard';
 import { HomeComponent } from './core/home/home.component';
-import { LogoutComponent } from './core/logout/logout.component';
 import { RentCarComponent } from './core/rent-car/rent-car.component';
 
 export const routes: Routes = [
@@ -53,7 +52,7 @@ export const routes: Routes = [
   },
   {
     path: `${paths.logout}`,
-    component: LogoutComponent,
+    loadComponent: () => import('./core/logout/logout.component').then((m) => m.LogoutComponent),
     canActivate: [LoginGuard],
   },
   {
