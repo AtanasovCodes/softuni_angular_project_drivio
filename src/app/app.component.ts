@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { FooterComponent } from './core/footer/footer.component';
-import { HeaderComponent } from './core/header/header.component';
-import { MetaService } from './services/meta/meta.service';
+import { MetaService } from './core/services/meta/meta.service';
+import { FooterComponent } from './layout/footer/footer.component';
+import { HeaderComponent } from './layout/header/header.component';
 import { ScrollToTopComponent } from './shared/scroll-to-top-btn/scroll-to-top-btn.component';
 
 @Component({

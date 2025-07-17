@@ -6,7 +6,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { ToastrModule } from 'ngx-toastr';
 
 import { routes } from './app.routes';
-import { tokenInterceptor } from './interceptors/token.interceptor';
+import { tokenInterceptor } from './core/interceptors/token.interceptor';
 
 import { LUCIDE_ICONS } from '../constants/lucide-icons.constants';
 
