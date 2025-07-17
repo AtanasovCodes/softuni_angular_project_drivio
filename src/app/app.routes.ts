@@ -8,12 +8,7 @@ import { ContactsComponent } from './core/contacts/contacts.component';
 import { CarAvailabilityGuard } from './core/guards/car-availabilitty.guard';
 import { LoginGuard } from './core/guards/login.guard';
 import { HomeComponent } from './core/home/home.component';
-import { LogoutComponent } from './core/logout/logout.component';
-import { NotFoundComponent } from './core/not-found/not-found.component';
 import { RentCarComponent } from './core/rent-car/rent-car.component';
-import { LoginComponent } from './user/login/login.component';
-import { ProfileComponent } from './user/profile/profile.component';
-import { RegisterComponent } from './user/register/register.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: `/${paths.home}`, pathMatch: 'full' },
@@ -35,15 +30,17 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        component: LoginComponent,
+        loadComponent: () => import('./user/login/login.component').then((m) => m.LoginComponent),
       },
       {
         path: 'register',
-        component: RegisterComponent,
+        loadComponent: () =>
+          import('./user/register/register.component').then((m) => m.RegisterComponent),
       },
       {
         path: 'profile',
-        component: ProfileComponent,
+        loadComponent: () =>
+          import('./user/profile/profile.component').then((m) => m.ProfileComponent),
         canActivate: [LoginGuard],
       },
     ],
@@ -55,12 +52,13 @@ export const routes: Routes = [
   },
   {
     path: `${paths.logout}`,
-    component: LogoutComponent,
+    loadComponent: () => import('./core/logout/logout.component').then((m) => m.LogoutComponent),
     canActivate: [LoginGuard],
   },
   {
     path: `${paths.notFound}`,
-    component: NotFoundComponent,
+    loadComponent: () =>
+      import('./core/not-found/not-found.component').then((m) => m.NotFoundComponent),
   },
 
   {
