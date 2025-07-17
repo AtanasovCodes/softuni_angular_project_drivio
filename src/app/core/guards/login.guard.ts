@@ -1,19 +1,17 @@
 import { paths } from 'constants/paths.constants';
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { UserService } from 'app/user/services/user.service';
-import { Observable } from 'rxjs';
+import { UserService } from 'app/features/user/services/user.service';
+import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) {}
+  private userService = inject(UserService);
+  private router = inject(Router);
 
   canActivate(): Observable<boolean> {
     return this.userService.getMe().pipe(
@@ -26,7 +24,7 @@ export class LoginGuard implements CanActivate {
       }),
       catchError(() => {
         this.router.navigate([`/${paths.login}`]);
-        return [false];
+        return of(false);
       })
     );
   }

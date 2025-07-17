@@ -2,13 +2,13 @@ import { paths } from 'constants/paths.constants';
 
 import { Routes } from '@angular/router';
 
-import { CarDetailsComponent } from './core/car-details/car-details.component';
-import { CarsComponent } from './core/cars/cars.component';
-import { ContactsComponent } from './core/contacts/contacts.component';
 import { CarAvailabilityGuard } from './core/guards/car-availabilitty.guard';
 import { LoginGuard } from './core/guards/login.guard';
-import { HomeComponent } from './core/home/home.component';
-import { RentCarComponent } from './core/rent-car/rent-car.component';
+import { CarDetailsComponent } from './features/car-details/car-details.component';
+import { CarsComponent } from './features/cars/cars.component';
+import { ContactsComponent } from './features/contacts/contacts.component';
+import { HomeComponent } from './features/home/home.component';
+import { RentCarComponent } from './features/rent-car/rent-car.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: `/${paths.home}`, pathMatch: 'full' },
@@ -30,17 +30,18 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        loadComponent: () => import('./user/login/login.component').then((m) => m.LoginComponent),
+        loadComponent: () =>
+          import('./features/user/login/login.component').then((m) => m.LoginComponent),
       },
       {
         path: 'register',
         loadComponent: () =>
-          import('./user/register/register.component').then((m) => m.RegisterComponent),
+          import('./features/user/register/register.component').then((m) => m.RegisterComponent),
       },
       {
         path: 'profile',
         loadComponent: () =>
-          import('./user/profile/profile.component').then((m) => m.ProfileComponent),
+          import('./features/user/profile/profile.component').then((m) => m.ProfileComponent),
         canActivate: [LoginGuard],
       },
     ],
@@ -52,13 +53,13 @@ export const routes: Routes = [
   },
   {
     path: `${paths.logout}`,
-    loadComponent: () => import('./core/logout/logout.component').then((m) => m.LogoutComponent),
+    loadComponent: () =>
+      import('./features/user/logout/logout.component').then((m) => m.LogoutComponent),
     canActivate: [LoginGuard],
   },
   {
     path: `${paths.notFound}`,
-    loadComponent: () =>
-      import('./core/not-found/not-found.component').then((m) => m.NotFoundComponent),
+    loadComponent: () => import('./not-found/not-found.component').then((m) => m.NotFoundComponent),
   },
 
   {

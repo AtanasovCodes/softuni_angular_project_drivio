@@ -1,0 +1,9 @@
+<section class="container spacer cars-list">
+  <ul class="flex-auto" aria-label="List of our cars in Drivio">
+    @for (car of cars; track car.id) {
+      <li tabindex="0">
+        <app-car-card [car]="car" />
+      </li>
+    }
+  </ul>
+</section>

@@ -2,8 +2,8 @@ import { paths } from 'constants/paths.constants';
 
 import { inject, Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { CarsService } from 'app/services/cars/cars.service';
-import { Observable } from 'rxjs';
+import { CarsService } from 'app/features/cars/services/cars/cars.service';
+import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class CarAvailabilityGuard implements CanActivate {
       }),
       catchError(() => {
         this.router.navigate([`/${paths.cars}`]);
-        return [false];
+        return of(false);
       })
     );
   }
