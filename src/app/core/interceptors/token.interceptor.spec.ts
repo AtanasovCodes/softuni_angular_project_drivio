@@ -30,9 +30,9 @@ describe('TokenInterceptor', () => {
   it('should add Authorization header if token exists in localStorage', () => {
     localStorage.setItem(LOCAL_STORAGE_KEYS.TOKEN_KEY, 'mock-token');
 
-    httpClient.get('/test-endpoint').subscribe();
+    httpClient.get('/api/test-endpoint').subscribe();
 
-    const req = httpTestingController.expectOne('/test-endpoint');
+    const req = httpTestingController.expectOne('/api/test-endpoint');
     expect(req.request.headers.has('Authorization')).toBeTrue();
     expect(req.request.headers.get('Authorization')).toBe('Bearer mock-token');
 

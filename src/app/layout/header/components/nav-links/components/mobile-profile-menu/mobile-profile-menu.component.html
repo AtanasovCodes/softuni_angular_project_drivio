@@ -1,0 +1,13 @@
+<span class="my-profile">
+  My Profile
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+  </svg>
+</span>
+<ul class="my-profile-menu mt-4">
+  @for (link of links; track $index) {
+    <li>
+      <a [routerLink]="link.path" class="dropdown-link">{{ link.name }}</a>
+    </li>
+  }
+</ul>

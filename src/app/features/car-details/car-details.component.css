@@ -84,7 +84,16 @@
     flex-basis: 100%;
   }
 
+  .car-details__actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
   .car-details__info img {
-    height: auto;
+    height: 300px;
+  }
+
+  .car-details__more-cars {
+    margin-top: 3.5rem;
   }
 }

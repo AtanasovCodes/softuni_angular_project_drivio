@@ -1,46 +1,82 @@
-<ul class="nav-links">
-  <li>
-    <a
-      routerLink="/{{ paths.home }}"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      title="Go Home"
-    >
-      Home
-    </a>
-  </li>
-  <li>
-    <a
-      routerLink="/{{ paths.cars }}"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: false }"
-      title="View Cars"
-    >
-      Cars
-    </a>
-  </li>
-  <li>
-    <a
-      routerLink="/{{ paths.contacts }}"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      title="View Contacts"
-    >
-      Contacts
-    </a>
-  </li>
-  <li>
-    @if (isLoggedIn) {
-      <app-profile-dropdown />
-    } @else {
+<button class="mobile-menu-button" (click)="toggleMenu()" aria-label="Toggle menu">☰ Menu</button>
+
+@if (isMobile$ | async) {
+  <ul
+    class="nav-links"
+    [@menuSlide]="isMenuOpen ? 'open' : 'closed'"
+    [attr.aria-hidden]="!isMenuOpen"
+  >
+    <li>
       <a
-        routerLink="/{{ paths.login }}"
+        routerLink="/{{ paths.home }}"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: false }"
-        title="Login"
+        title="Go Home"
+        (click)="toggleMenu()"
       >
-        Login
+        Home
       </a>
-    }
-  </li>
-</ul>
+    </li>
+    <li>
+      <a
+        routerLink="/{{ paths.cars }}"
+        routerLinkActive="active"
+        title="View Cars"
+        (click)="toggleMenu()"
+      >
+        Cars
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/{{ paths.contacts }}"
+        routerLinkActive="active"
+        title="View Contacts"
+        (click)="toggleMenu()"
+      >
+        Contacts
+      </a>
+    </li>
+    <li>
+      @if (isLoggedIn) {
+        <a
+          routerLink="/{{ paths.profile }}"
+          routerLinkActive="active"
+          title="View My Profile"
+          (click)="toggleMenu()"
+        >
+          My Profile
+        </a>
+      } @else {
+        <a
+          routerLink="/{{ paths.login }}"
+          routerLinkActive="active"
+          title="Login"
+          (click)="toggleMenu()"
+        >
+          Login
+        </a>
+      }
+    </li>
+  </ul>
+} @else {
+  <ul class="nav-links static">
+    <li>
+      <a routerLink="/{{ paths.home }}" routerLinkActive="active" title="Go Home">Home</a>
+    </li>
+    <li>
+      <a routerLink="/{{ paths.cars }}" routerLinkActive="active" title="View Cars">Cars</a>
+    </li>
+    <li>
+      <a routerLink="/{{ paths.contacts }}" routerLinkActive="active" title="View Contacts"
+        >Contacts</a
+      >
+    </li>
+    <li>
+      @if (isLoggedIn) {
+        <app-profile-dropdown />
+      } @else {
+        <a routerLink="/{{ paths.login }}" routerLinkActive="active" title="Login">Login</a>
+      }
+    </li>
+  </ul>
+}
