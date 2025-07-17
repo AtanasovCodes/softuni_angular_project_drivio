@@ -1,12 +1,33 @@
 <ul class="nav-links">
   <li>
-    <a routerLink="/{{ paths.home }}" title="Go Home"> Home </a>
+    <a
+      routerLink="/{{ paths.home }}"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      title="Go Home"
+    >
+      Home
+    </a>
   </li>
   <li>
-    <a routerLink="/{{ paths.cars }}" title="View Cars"> Cars </a>
+    <a
+      routerLink="/{{ paths.cars }}"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false}"
+      title="View Cars"
+    >
+      Cars
+    </a>
   </li>
   <li>
-    <a routerLink="/{{ paths.contacts }}" title="View Contacts"> Contacts </a>
+    <a
+      routerLink="/{{ paths.contacts }}"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      title="View Contacts"
+    >
+      Contacts
+    </a>
   </li>
   <li>
     @if (isLoggedIn) {

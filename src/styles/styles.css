@@ -69,6 +69,11 @@ button {
 
 /* ===== Buttons ===== */
 
+a.active {
+  color: var(--main-color);
+  font-weight: 600;
+}
+
 a.error,
 button.error {
   background-color: var(--error-color);

@@ -55,7 +55,7 @@ a {
 
 a:hover,
 a:focus {
-  color: var(--secondary-color);
+  color: var(--main-color);
   text-decoration: none;
 }
 
