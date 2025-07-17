@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter, RouterLink } from '@angular/router';
 import { UserService } from 'app/features/user/services/user.service';
 
@@ -22,7 +23,13 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderComponent, MockLogoComponent, MockNavLinksComponent, RouterLink],
+      imports: [
+        HeaderComponent,
+        MockLogoComponent,
+        MockNavLinksComponent,
+        RouterLink,
+        NoopAnimationsModule,
+      ],
       providers: [provideRouter([]), { provide: UserService, useValue: mockUserService }],
     }).compileComponents();
 

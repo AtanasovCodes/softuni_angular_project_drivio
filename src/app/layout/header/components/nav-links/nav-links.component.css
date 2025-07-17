@@ -1,3 +1,11 @@
+.mobile-menu-button {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .nav-links {
   display: flex;
   flex-direction: row;
@@ -7,4 +15,31 @@
 .nav-links li a {
   font-size: 1.4rem;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 1rem;
+    padding-top: 2rem;
+    z-index: 1000;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  .nav-links li a {
+    font-size: 2.2rem;
+  }
 }

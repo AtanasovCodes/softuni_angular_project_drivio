@@ -1,0 +1,25 @@
+.my-profile {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.my-profile svg {
+  width: 30px;
+  height: 30px;
+  margin-left: 0.5rem;
+}
+
+.my-profile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.my-profile-menu a {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+}

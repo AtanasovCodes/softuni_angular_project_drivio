@@ -2,8 +2,11 @@ import { paths } from 'constants/paths.constants';
 
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter, Routes } from '@angular/router';
+import { ResizeService } from 'app/core/services/resize/resize.service';
 import { UserService } from 'app/features/user/services/user.service';
+import { of } from 'rxjs';
 
 import { NavLinksComponent } from './nav-links.component';
 
@@ -28,9 +31,13 @@ describe('NavLinksComponent', () => {
     mockUserService = { isLoggedIn: false };
 
     await TestBed.configureTestingModule({
-      imports: [NavLinksComponent],
+      imports: [NavLinksComponent, NoopAnimationsModule],
       declarations: [DummyComponent],
-      providers: [provideRouter(testRoutes), { provide: UserService, useValue: mockUserService }],
+      providers: [
+        provideRouter(testRoutes),
+        { provide: UserService, useValue: mockUserService },
+        { provide: ResizeService, useValue: { isMobile$: of(false) } },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavLinksComponent);
@@ -62,9 +69,9 @@ describe('NavLinksComponent', () => {
 
   it('should show profile link when logged in', () => {
     mockUserService.isLoggedIn = true;
+
     fixture.detectChanges();
 
-    // const profileLink = element.querySelector('a[title="View Profile"]');
     const profileButton = element.querySelector('app-profile-dropdown');
     expect(profileButton).toBeTruthy();
   });
