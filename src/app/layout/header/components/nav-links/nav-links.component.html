@@ -13,7 +13,7 @@
     <a
       routerLink="/{{ paths.cars }}"
       routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: false}"
+      [routerLinkActiveOptions]="{ exact: false }"
       title="View Cars"
     >
       Cars
@@ -33,7 +33,14 @@
     @if (isLoggedIn) {
       <app-profile-dropdown />
     } @else {
-      <a routerLink="/{{ paths.login }}" title="Login"> Login </a>
+      <a
+        routerLink="/{{ paths.login }}"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        title="Login"
+      >
+        Login
+      </a>
     }
   </li>
 </ul>
