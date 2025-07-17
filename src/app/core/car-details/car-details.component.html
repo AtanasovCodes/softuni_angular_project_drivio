@@ -36,7 +36,7 @@
         <ul class="car-details__features" tabindex="0" aria-label="Car features">
           @for (feature of car.features; track feature) {
             <li tabindex="0">
-              {{ feature }}
+              {{ feature | titlecase }}
             </li>
           }
         </ul>
