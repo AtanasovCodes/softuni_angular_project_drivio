@@ -111,7 +111,7 @@ export class RegisterComponent {
         .subscribe({
           next: () => {
             this.toastr.success('Registration successful', 'Welcome');
-            this.router.navigate([paths.home]);
+            this.router.navigate([paths.cars]);
           },
           error: (err) => {
             if (err.status === 400) {

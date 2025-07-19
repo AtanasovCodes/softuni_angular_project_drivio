@@ -24,12 +24,8 @@ export class NavLinksComponent implements OnInit, OnDestroy {
 
   paths = paths;
   isMenuOpen = false;
-
   isMobile$!: Observable<boolean>;
-
-  get isLoggedIn() {
-    return this.userService.isLoggedIn;
-  }
+  isLoggedIn$ = this.userService.isLoggedIn$;
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;

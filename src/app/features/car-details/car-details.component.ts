@@ -31,7 +31,7 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
   carId: string | null = null;
   listWithMoreCars: Car[] = [];
   paths = paths;
-  isLoggedIn = this.userService.isLoggedIn;
+  isLoggedIn$ = this.userService.isLoggedIn$;
 
   constructor() {
     this.loadingService.show();

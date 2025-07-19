@@ -42,6 +42,7 @@
   color: #333;
   text-decoration: none;
   transition: background-color 0.2s ease;
+  cursor: pointer;
 }
 
 .dropdown-link:hover {

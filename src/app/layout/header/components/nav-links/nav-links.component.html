@@ -34,7 +34,7 @@
         </a>
       </li>
       <li>
-        @if (isLoggedIn) {
+        @if (isLoggedIn$ | async) {
           <a
             routerLink="/{{ paths.profile }}"
             routerLinkActive="active"
@@ -70,7 +70,7 @@
       >
     </li>
     <li>
-      @if (isLoggedIn) {
+      @if (isLoggedIn$ | async) {
         <app-profile-dropdown />
       } @else {
         <a routerLink="/{{ paths.login }}" routerLinkActive="active" title="Login">Login</a>

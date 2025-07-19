@@ -20,8 +20,21 @@ export class HomeComponent {
   private carsService = inject(CarsService);
 
   ngOnInit() {
-    this.carsService.getAllCars({ limit: 3 }).subscribe((response) => {
-      this.cars = response.data;
-    });
+    this.getCars();
+  }
+
+  getCars() {
+    this.carsService
+      .getAllCars({
+        limit: 3,
+      })
+      .subscribe({
+        next: (cars) => {
+          this.cars = cars.data;
+        },
+        error: (error) => {
+          console.error('Error fetching featured cars:', error);
+        },
+      });
   }
 }
