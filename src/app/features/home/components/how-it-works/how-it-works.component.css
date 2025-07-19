@@ -13,3 +13,9 @@
   display: block;
   object-fit: contain;
 }
+
+@media (max-width: 768px) {
+  .how-it-works-section img {
+    height:300px;
+  }
+}
