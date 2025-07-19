@@ -17,14 +17,14 @@ export class CarsService {
   }: {
     limit?: number;
     page?: number;
-    excludeId?: string | null;
+    excludeId?: number | null;
   }): Observable<CarListResponse> {
     const params = new URLSearchParams();
     params.set('limit', limit.toString());
     params.set('page', page.toString());
 
     if (excludeId) {
-      params.set('excludeId', excludeId);
+      params.set('excludeId', excludeId.toString());
     }
 
     return this.httpClient.get<CarListResponse>(`${environment.baseURL}/cars?${params.toString()}`);

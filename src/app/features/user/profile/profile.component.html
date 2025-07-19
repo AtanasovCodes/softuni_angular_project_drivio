@@ -1,15 +1,39 @@
 <section class="container spacer">
-  <div class="toggle-container">
-    <span class="toggle-label">{{ inEditMode ? 'Edit Mode' : 'View Mode' }}</span>
-    <label class="toggle-switch" aria-label="Toggle Edit Mode">
-      <input type="checkbox" [checked]="inEditMode" (change)="toggleEditMode()" />
-      <span class="slider"></span>
-    </label>
-  </div>
+  <header class="profile-header">
+    <p class="profile-link">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+        />
+      </svg>
+
+      <button>
+        <span (click)="toggleEditMode()">
+          {{ inEditMode ? 'View Profile' : 'Edit Profile' }}
+        </span>
+      </button>
+    </p>
+    <p class="profile-link">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 4px">
+        <path
+          d="M5 11h14l-1.5-4.5A2 2 0 0015.6 5H8.4a2 2 0 00-1.9 1.5L5 11zm14.5 1H4.5a1 1 0 00-1 1v5a1 1 0 001 1H6a1 1 0 001-1v-1h10v1a1 1 0 001 1h1.5a1 1 0 001-1v-5a1 1 0 00-1-1zM7 17.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm10 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+        />
+      </svg>
+      <a routerLink="/{{ paths.profileRentals }}">My Rentals</a>
+    </p>
+    <p class="profile-link">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 4px">
+        <path
+          d="M16 13v-2H7V8l-5 4 5 4v-3h9zm3-10H5a2 2 0 00-2 2v6h2V5h14v14H5v-6H3v6a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"
+        />
+      </svg>
+      <a routerLink="/{{ paths.logout }}"> Logout </a>
+    </p>
+  </header>
 
   @if (user) {
     @if (inEditMode) {
-      <app-user-edit-form></app-user-edit-form>
+      <app-user-edit-form (profileUpdated)="onProfileUpdated()"></app-user-edit-form>
     } @else {
       <app-user-info [user]="user"></app-user-info>
     }

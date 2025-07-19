@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
 
 import { HeroComponent } from './hero.component';
 
@@ -10,6 +11,7 @@ describe('HeroComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HeroComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroComponent);
@@ -27,20 +29,14 @@ describe('HeroComponent', () => {
   });
 
   it('should render the Explore Cars button', () => {
-    const button = fixture.debugElement.query(
-      By.css('button.primary'),
-    ).nativeElement;
+    const button = fixture.debugElement.query(By.css('a.primary')).nativeElement;
     expect(button.textContent).toBe('Explore Cars');
   });
 
   it('should render the hero image with correct src and alt attributes', () => {
-    const img = fixture.debugElement.query(
-      By.css('img.hero-image'),
-    ).nativeElement;
+    const img = fixture.debugElement.query(By.css('img.hero-image')).nativeElement;
     expect(img.getAttribute('src')).toBe('assets/images/hero-banner.webp');
-    expect(img.getAttribute('alt')).toBe(
-      'A stunning car parked in a scenic location',
-    );
+    expect(img.getAttribute('alt')).toBe('A stunning car parked in a scenic location');
     expect(img.getAttribute('width')).toBe('1600');
     expect(img.getAttribute('height')).toBe('600');
     expect(img.getAttribute('loading')).toBe('eager');

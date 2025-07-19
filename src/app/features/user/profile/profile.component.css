@@ -58,3 +58,46 @@
 .toggle-switch input:checked + .slider::before {
   transform: translateX(22px);
 }
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  color: #fff;
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.profile-link a {
+  color: #fff;
+}
+.profile-link svg {
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+@media (max-width: 768px) {
+  .toggle-container {
+    align-items: flex-start;
+  }
+
+  .toggle-label {
+    margin-bottom: 5px;
+  }
+
+  .profile-header {
+    flex-wrap: wrap;
+    padding: 15px;
+  }
+}

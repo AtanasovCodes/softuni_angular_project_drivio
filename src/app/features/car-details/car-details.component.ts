@@ -3,6 +3,7 @@ import { paths } from 'constants/paths.constants';
 import { TitleCasePipe } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { LoadingService } from 'app/core/services/loading/loading.service';
 import { MetaService } from 'app/core/services/meta/meta.service';
 import { ChipComponent } from 'app/shared/chip/chip.component';
 import { DividerComponent } from 'app/shared/divider/divider.component';
@@ -24,15 +25,16 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
   private userService = inject(UserService);
   private activatedRoute = inject(ActivatedRoute);
   private metaService = inject(MetaService);
+  private loadingService = inject(LoadingService);
 
   car: Car | null = null;
+  carId: string | null = null;
   listWithMoreCars: Car[] = [];
   paths = paths;
-
   isLoggedIn = this.userService.isLoggedIn;
 
-  getCarDetails(carId: string) {
-    return this.carsService.getCarById(carId);
+  constructor() {
+    this.loadingService.show();
   }
 
   ngOnInit() {
@@ -42,25 +44,47 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
         console.error('Car ID is not provided');
         return;
       }
-
-      this.getCarDetails(carId).subscribe((carDetails) => {
-        this.car = carDetails;
-
-        this.metaService.setMetaTags({
-          title: `Drivio - ${this.car?.brand} ${this.car?.model}`,
-          description: this.car?.description || 'Rent a car easily with Drivio',
-          image: this.car ? this.car.image : '/assets/images/drivio.webp',
-          type: 'article',
-        });
-      });
-
-      this.carsService.getAllCars({ limit: 3, excludeId: carId }).subscribe((cars) => {
-        this.listWithMoreCars = cars.data;
-      });
+      this.carId = carId;
+      this.getCarDetails(carId);
+      this.getMoreCars();
     });
   }
 
   ngOnDestroy() {
     this.metaService.setMetaTags();
+  }
+
+  getCarDetails(carId: string) {
+    this.loadingService.show();
+    this.carsService.getCarById(carId).subscribe({
+      next: (carDetails) => {
+        this.car = carDetails;
+        this.metaService.setMetaTags({
+          title: `Drivio - ${this.car?.brand} ${this.car?.model}`,
+          description: this.car?.description || 'Rent a car easily with Drivio',
+          image: this.car.image,
+          type: 'article',
+        });
+        this.loadingService.hide();
+      },
+      error: () => {
+        this.loadingService.hide();
+      },
+    });
+  }
+
+  getMoreCars() {
+    if (!this.carId) {
+      return;
+    }
+
+    this.carsService.getAllCars({ limit: 3, excludeId: Number(this.carId) }).subscribe({
+      next: (cars) => {
+        this.listWithMoreCars = cars.data;
+      },
+      error: (error) => {
+        console.error('Error fetching more cars:', error);
+      },
+    });
   }
 }

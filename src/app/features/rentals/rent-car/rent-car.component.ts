@@ -2,10 +2,10 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CustomValidators } from 'app/shared/validators/custom-validators';
 import { Car } from 'types/cars.interface';
 
-import { CarsService } from '../cars/services/cars/cars.service';
+import { CarsService } from '../../cars/services/cars/cars.service';
+import { RentalService } from '../services/rental.service';
 
 @Component({
   selector: 'app-rent-car',
@@ -17,6 +17,7 @@ import { CarsService } from '../cars/services/cars/cars.service';
 export class RentCarComponent {
   private fb = inject(FormBuilder);
   private carsService = inject(CarsService);
+  private rentalService = inject(RentalService);
   private activatedRoute = inject(ActivatedRoute);
 
   carId: string | null = null;
@@ -24,27 +25,10 @@ export class RentCarComponent {
 
   rentCarForm = this.fb.group({
     rentalDuration: new FormControl(1, [Validators.required, Validators.min(1)]),
-    userName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    userEmail: new FormControl('', [Validators.required, CustomValidators.emailValidator]),
-    userPhone: new FormControl('', [Validators.required, Validators.pattern(/^\+?[0-9]{10,15}$/)]),
   });
 
-  get carIdControl() {
-    return this.rentCarForm.get('carId')!;
-  }
   get rentalDuration() {
     return this.rentCarForm.get('rentalDuration')!;
-  }
-  get userName() {
-    return this.rentCarForm.get('userName')!;
-  }
-
-  get userEmail() {
-    return this.rentCarForm.get('userEmail')!;
-  }
-
-  get userPhone() {
-    return this.rentCarForm.get('userPhone')!;
   }
 
   isFieldInvalid(controlPath: keyof typeof this.rentCarForm.controls): boolean {
@@ -77,10 +61,29 @@ export class RentCarComponent {
 
   onSubmit() {
     if (this.rentCarForm.valid) {
-      const rentalData = this.rentCarForm.value;
-      const carId = this.carDetails?.id;
-      console.log('Rental Data:', rentalData);
-      console.log('Car ID:', carId);
+      const rentalDuration = this.rentalDuration.value as number;
+
+      const startDate = new Date();
+      const endDate = new Date(startDate.getTime() + rentalDuration * 24 * 60 * 60 * 1000);
+
+      // Format to ISO string in UTC (e.g., "2024-06-01T10:00:00Z")
+      const formattedStartDate = startDate.toISOString();
+      const formattedEndDate = endDate.toISOString();
+
+      const rentalData = {
+        carId: Number(this.carDetails?.id),
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      };
+
+      this.rentalService.createRental(rentalData).subscribe({
+        next: (response) => {
+          console.log('Rental created successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error creating rental:', error);
+        },
+      });
     } else {
       console.error('Form is invalid');
     }

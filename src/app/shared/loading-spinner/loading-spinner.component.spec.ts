@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserEditFormComponent } from './user-edit-form.component';
+import { LoadingSpinnerComponent } from './loading-spinner.component';
 
-describe('UserEditFormComponent', () => {
-  let component: UserEditFormComponent;
-  let fixture: ComponentFixture<UserEditFormComponent>;
+describe('LoadingSpinnerComponent', () => {
+  let component: LoadingSpinnerComponent;
+  let fixture: ComponentFixture<LoadingSpinnerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserEditFormComponent]
+      imports: [LoadingSpinnerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UserEditFormComponent);
+    fixture = TestBed.createComponent(LoadingSpinnerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

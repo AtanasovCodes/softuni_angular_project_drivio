@@ -8,7 +8,7 @@ import { CarDetailsComponent } from './features/car-details/car-details.componen
 import { CarsComponent } from './features/cars/cars.component';
 import { ContactsComponent } from './features/contacts/contacts.component';
 import { HomeComponent } from './features/home/home.component';
-import { RentCarComponent } from './features/rent-car/rent-car.component';
+import { RentCarComponent } from './features/rentals/rent-car/rent-car.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: `/${paths.home}`, pathMatch: 'full' },
@@ -42,6 +42,14 @@ export const routes: Routes = [
         path: 'profile',
         loadComponent: () =>
           import('./features/user/profile/profile.component').then((m) => m.ProfileComponent),
+        canActivate: [LoginGuard],
+      },
+      {
+        path: 'profile/rentals',
+        loadComponent: () =>
+          import('./features/rentals/my-rentals/my-rentals.component').then(
+            (m) => m.MyRentalsComponent
+          ),
         canActivate: [LoginGuard],
       },
     ],

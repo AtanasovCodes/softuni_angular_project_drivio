@@ -1,0 +1,62 @@
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  min-width: 600px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.table thead {
+  background-color: #f8f9fa;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.table-striped tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+.car-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .table-responsive .table button {
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+  }
+}
