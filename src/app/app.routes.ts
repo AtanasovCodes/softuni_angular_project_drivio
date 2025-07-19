@@ -71,6 +71,13 @@ export const routes: Routes = [
   },
 
   {
+    path: 'rentals/success',
+    loadComponent: () =>
+      import('./features/rentals/success/success.component').then((m) => m.SuccessComponent),
+    canActivate: [LoginGuard],
+  },
+
+  {
     path: '**',
     redirectTo: '/not-found',
   },
