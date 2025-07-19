@@ -94,7 +94,6 @@ button.error:hover {
 
 a.primary,
 button.primary {
-  margin-top: 1rem;
   padding: 0.75rem 1.5rem;
   background-color: var(--main-color);
   color: white;
@@ -107,7 +106,7 @@ button.primary {
 
 a.primary:hover,
 button.primary:hover {
-  background-color: var(--secondary-color);
+  opacity: 0.8;
 }
 
 a.primary:disabled,
@@ -147,3 +146,5 @@ textarea::placeholder,
 select::placeholder {
   font-size: 0.9rem;
 }
+
+

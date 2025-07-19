@@ -72,4 +72,18 @@ export class UserService {
       })
     );
   }
+
+  getUserId(): number | null {
+    return this.user ? this.user.id : null;
+  }
+
+  updateProfile(userData: {
+    firstName?: string;
+    lastName?: string;
+    phoneNumber?: string;
+    email?: string;
+    password?: string;
+  }): Observable<User> {
+    return this.httpClient.patch<User>(`${environment.baseURL}/me`, userData);
+  }
 }

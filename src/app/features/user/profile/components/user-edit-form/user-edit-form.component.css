@@ -1,0 +1,14 @@
+.edit-profile-form,
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.edit-profile-form,
+.change-password-form,
+button {
+  width: auto;
+  display: flex;
+  margin-right: auto;
+}

@@ -22,21 +22,25 @@
     display: block;
   }
 
-  .nav-links {
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
+  .nav-links-container {
     position: fixed;
     top: 70px;
     left: 0;
     width: 100%;
     background-color: white;
-    padding: 1rem;
-    padding-top: 2rem;
-    z-index: 1000;
     height: 0;
     opacity: 0;
     overflow: hidden;
+    z-index: 1000;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+    padding: 1rem;
+    padding-top: 2rem;
   }
 
   .nav-links li a {

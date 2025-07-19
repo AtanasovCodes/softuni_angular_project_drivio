@@ -1,0 +1,49 @@
+<section class="container spacer">
+  <h2 class="text-center mb-4">My Rentals</h2>
+  <p class="text-center mb-4">
+    Here you can view your rental history. Or manage your current rentals.
+  </p>
+
+  @if (rentals.length === 0) {
+    <h4 class="text-center">
+      You have no rentals at the moment. Please check back later or start a new rental.
+    </h4>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Car</th>
+            <th>Car Image</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+            <th>Cancel</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (rental of rentals; track rental.id) {
+            <tr>
+              <td>{{ rental.car.brand }} {{ rental.car.model }}</td>
+              <td>
+                <img
+                  [src]="rental.car.image"
+                  alt="{{ rental.car.brand }} {{ rental.car.model }}"
+                  class="car-image"
+                />
+              </td>
+              <td>{{ rental.startDate | date: 'shortDate' }}</td>
+              <td>{{ rental.endDate | date: 'shortDate' }}</td>
+              <td>
+                <button class="primary">View Details</button>
+              </td>
+              <td>
+                <button class="error" (click)="cancelRental(rental.id)">Cancel Rental</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

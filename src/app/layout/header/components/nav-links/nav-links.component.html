@@ -1,63 +1,61 @@
 <button class="mobile-menu-button" (click)="toggleMenu()" aria-label="Toggle menu">☰ Menu</button>
 
 @if (isMobile$ | async) {
-  <ul
-    class="nav-links"
-    [@menuSlide]="isMenuOpen ? 'open' : 'closed'"
-    [attr.aria-hidden]="!isMenuOpen"
-  >
-    <li>
-      <a
-        routerLink="/{{ paths.home }}"
-        routerLinkActive="active"
-        title="Go Home"
-        (click)="toggleMenu()"
-      >
-        Home
-      </a>
-    </li>
-    <li>
-      <a
-        routerLink="/{{ paths.cars }}"
-        routerLinkActive="active"
-        title="View Cars"
-        (click)="toggleMenu()"
-      >
-        Cars
-      </a>
-    </li>
-    <li>
-      <a
-        routerLink="/{{ paths.contacts }}"
-        routerLinkActive="active"
-        title="View Contacts"
-        (click)="toggleMenu()"
-      >
-        Contacts
-      </a>
-    </li>
-    <li>
-      @if (isLoggedIn) {
+  <div class="nav-links-container" [@menuSlide]="isMenuOpen ? 'open' : 'closed'">
+    <ul class="nav-links" [attr.aria-hidden]="!isMenuOpen">
+      <li>
         <a
-          routerLink="/{{ paths.profile }}"
+          routerLink="/{{ paths.home }}"
           routerLinkActive="active"
-          title="View My Profile"
+          title="Go Home"
           (click)="toggleMenu()"
         >
-          My Profile
+          Home
         </a>
-      } @else {
+      </li>
+      <li>
         <a
-          routerLink="/{{ paths.login }}"
+          routerLink="/{{ paths.cars }}"
           routerLinkActive="active"
-          title="Login"
+          title="View Cars"
           (click)="toggleMenu()"
         >
-          Login
+          Cars
         </a>
-      }
-    </li>
-  </ul>
+      </li>
+      <li>
+        <a
+          routerLink="/{{ paths.contacts }}"
+          routerLinkActive="active"
+          title="View Contacts"
+          (click)="toggleMenu()"
+        >
+          Contacts
+        </a>
+      </li>
+      <li>
+        @if (isLoggedIn) {
+          <a
+            routerLink="/{{ paths.profile }}"
+            routerLinkActive="active"
+            title="View My Profile"
+            (click)="toggleMenu()"
+          >
+            My Profile
+          </a>
+        } @else {
+          <a
+            routerLink="/{{ paths.login }}"
+            routerLinkActive="active"
+            title="Login"
+            (click)="toggleMenu()"
+          >
+            Login
+          </a>
+        }
+      </li>
+    </ul>
+  </div>
 } @else {
   <ul class="nav-links static">
     <li>
