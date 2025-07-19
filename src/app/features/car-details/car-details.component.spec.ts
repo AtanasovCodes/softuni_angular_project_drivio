@@ -2,9 +2,12 @@ import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, RouterLink } from '@angular/router';
+import { of } from 'rxjs';
 import { Car } from 'types/cars.interface';
 
 import { CarDetailsComponent } from './car-details.component';
+
+import { UserService } from '../user/services/user.service';
 
 describe('CarDetailsComponent', () => {
   let component: CarDetailsComponent;
@@ -23,10 +26,18 @@ describe('CarDetailsComponent', () => {
     features: ['Electric', 'Autopilot', 'Luxury'],
   };
 
+  const mockUserService = {
+    isLoggedIn$: of(true),
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CarDetailsComponent, RouterLink],
-      providers: [provideRouter([]), provideHttpClient()],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        { provide: UserService, useValue: mockUserService },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CarDetailsComponent);
@@ -36,7 +47,7 @@ describe('CarDetailsComponent', () => {
   });
 
   it('should display car brand, model, and year', () => {
-    component.isLoggedIn = true;
+    component.isLoggedIn$ = of(true);
     fixture.detectChanges();
 
     const heading = fixture.nativeElement.querySelector('h1');
@@ -98,7 +109,8 @@ describe('CarDetailsComponent', () => {
   });
 
   it('should show "Rent this car" button if logged in and car is free', () => {
-    component.isLoggedIn = true;
+    component.isLoggedIn$ = of(true);
+
     if (component.car) {
       component.car.status = 'free';
     }
@@ -110,7 +122,7 @@ describe('CarDetailsComponent', () => {
   });
 
   it('should show "Login to rent this car" button if not logged in and car is free', () => {
-    component.isLoggedIn = false;
+    component.isLoggedIn$ = of(false);
 
     if (component.car) {
       component.car.status = 'free';
@@ -119,6 +131,7 @@ describe('CarDetailsComponent', () => {
     fixture.detectChanges();
 
     const button = fixture.nativeElement.querySelector('button.error');
+    
     expect(button).toBeTruthy();
     expect(button.textContent).toContain('Login to rent this car');
   });

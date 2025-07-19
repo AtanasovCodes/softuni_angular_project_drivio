@@ -1,6 +1,6 @@
 import { paths } from 'constants/paths.constants';
 
-import { TitleCasePipe } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LoadingService } from 'app/core/services/loading/loading.service';
@@ -16,7 +16,14 @@ import { UserService } from '../user/services/user.service';
 @Component({
   selector: 'app-car-details-component',
   standalone: true,
-  imports: [ChipComponent, DividerComponent, RouterLink, CarCardComponent, TitleCasePipe],
+  imports: [
+    ChipComponent,
+    DividerComponent,
+    RouterLink,
+    CarCardComponent,
+    TitleCasePipe,
+    AsyncPipe,
+  ],
   templateUrl: './car-details.component.html',
   styleUrl: './car-details.component.css',
 })

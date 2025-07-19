@@ -1,3 +1,5 @@
+@let isLoggedIn = isLoggedIn$ | async;
+
 <section class="container spacer">
   @if (car) {
     <article class="car-details" tabindex="0">
@@ -50,7 +52,7 @@
           </strong>
         }
         <footer class="car-details__actions">
-          @if (isLoggedIn$ && car.status === 'free') {
+          @if (isLoggedIn && car.status === 'free') {
             <button
               class="primary"
               routerLink="/{{ paths.rentCar(car.id.toString()) }}"
@@ -59,7 +61,7 @@
               Rent this car
             </button>
           }
-          @if (!isLoggedIn$ && car.status === 'free') {
+          @if (!isLoggedIn && car.status === 'free') {
             <button
               class="error my-4"
               routerLink="/{{ paths.login }}"

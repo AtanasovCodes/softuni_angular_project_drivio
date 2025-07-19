@@ -1,5 +1,6 @@
 import { paths } from 'constants/paths.constants';
 
+import { provideHttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +16,7 @@ class DummyComponent {}
 
 describe('NavLinksComponent', () => {
   let fixture: ComponentFixture<NavLinksComponent>;
+  let component: NavLinksComponent;
   let element: HTMLElement;
 
   const testRoutes: Routes = [
@@ -25,22 +27,21 @@ describe('NavLinksComponent', () => {
     { path: 'users/profile', component: DummyComponent },
   ];
 
-  let mockUserService: { isLoggedIn: boolean };
-
   beforeEach(async () => {
-    mockUserService = { isLoggedIn: false };
-
     await TestBed.configureTestingModule({
       imports: [NavLinksComponent, NoopAnimationsModule],
       declarations: [DummyComponent],
       providers: [
         provideRouter(testRoutes),
-        { provide: UserService, useValue: mockUserService },
+        provideHttpClient(),
+        ResizeService,
+        { provide: UserService },
         { provide: ResizeService, useValue: { isMobile$: of(false) } },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavLinksComponent);
+    component = fixture.componentInstance;
     element = fixture.nativeElement;
   });
 
@@ -59,7 +60,7 @@ describe('NavLinksComponent', () => {
   });
 
   it('should show login link when not logged in', () => {
-    mockUserService.isLoggedIn = false;
+    component.isLoggedIn$ = of(false);
     fixture.detectChanges();
 
     const loginLink = element.querySelector('a[title="Login"]');
@@ -68,7 +69,7 @@ describe('NavLinksComponent', () => {
   });
 
   it('should show profile link when logged in', () => {
-    mockUserService.isLoggedIn = true;
+    component.isLoggedIn$ = of(true);
 
     fixture.detectChanges();
 
