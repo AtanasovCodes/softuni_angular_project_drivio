@@ -50,6 +50,7 @@ export class AppComponent implements OnInit {
           this.userService.clearUser();
         }
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
