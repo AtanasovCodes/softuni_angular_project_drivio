@@ -2,7 +2,7 @@ import { paths } from 'constants/paths.constants';
 
 import { provideHttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter, Routes } from '@angular/router';
 import { ResizeService } from 'app/core/services/resize/resize.service';
@@ -13,6 +13,16 @@ import { NavLinksComponent } from './nav-links.component';
 
 @Component({ template: '' })
 class DummyComponent {}
+
+const mockResizeService = {
+  isMobile$: of(true),
+};
+
+const userServiceMock = {
+  isLoggedIn$: of(false),
+  getUser: () => of(null),
+  logout: () => of(null),
+};
 
 describe('NavLinksComponent', () => {
   let fixture: ComponentFixture<NavLinksComponent>;
@@ -35,8 +45,8 @@ describe('NavLinksComponent', () => {
         provideRouter(testRoutes),
         provideHttpClient(),
         ResizeService,
-        { provide: UserService },
-        { provide: ResizeService, useValue: { isMobile$: of(false) } },
+        { provide: UserService, useValue: userServiceMock },
+        { provide: ResizeService, useValue: mockResizeService },
       ],
     }).compileComponents();
 
@@ -69,11 +79,46 @@ describe('NavLinksComponent', () => {
   });
 
   it('should show profile link when logged in', () => {
+    mockResizeService.isMobile$ = of(false);
     component.isLoggedIn$ = of(true);
-
     fixture.detectChanges();
 
     const profileButton = element.querySelector('app-profile-dropdown');
     expect(profileButton).toBeTruthy();
+  });
+
+  it('should toggle mobile menu on button click when in mobile view', fakeAsync(() => {
+    const menuButton = element.querySelector('.mobile-menu-button') as HTMLElement;
+    expect(menuButton).toBeTruthy();
+
+    expect(component.isMenuOpen).toBeFalse();
+
+    menuButton.click();
+    tick();
+
+    fixture.detectChanges();
+
+    expect(component.isMenuOpen).toBeTrue();
+
+    const navContainer = element.querySelector('.nav-links-container');
+    expect(navContainer).toBeTruthy();
+
+    const menuLinks = element.querySelectorAll('.nav-links a');
+    expect(menuLinks.length).toBe(4);
+  }));
+
+  it('should close mobile menu after clicking a link', () => {
+    component.isMobile$ = of(true);
+    fixture.detectChanges();
+
+    component.toggleMenu();
+    fixture.detectChanges();
+
+    expect(component.isMenuOpen).toBeTrue();
+
+    component.toggleMenu();
+    fixture.detectChanges();
+
+    expect(component.isMenuOpen).toBeFalse();
   });
 });
