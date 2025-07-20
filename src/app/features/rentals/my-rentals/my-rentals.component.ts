@@ -1,5 +1,8 @@
+import { paths } from 'constants/paths.constants';
+
 import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { LoadingService } from 'app/core/services/loading/loading.service';
 import { UserService } from 'app/features/user/services/user.service';
 import { RentalData } from 'types/rental.interface';
@@ -9,7 +12,7 @@ import { RentalService } from '../services/rental.service';
 @Component({
   selector: 'app-my-rentals',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './my-rentals.component.html',
   styleUrl: './my-rentals.component.css',
 })
@@ -20,6 +23,7 @@ export class MyRentalsComponent {
   private loadingService = inject(LoadingService);
 
   rentals: RentalData[] = [];
+  paths = paths;
   errorMessage: string | null = null;
 
   constructor() {
