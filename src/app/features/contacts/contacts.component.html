@@ -10,7 +10,7 @@
       @if (isFieldInvalid('name')) {
         <span class="error">Name must be at least 2 characters long.</span>
       }
-      <input type="text" placeholder="Email" formControlName="email" />
+      <input type="email" placeholder="Email" formControlName="email" />
 
       @if (isEmailInvalid('email')) {
         <span class="error">Please enter a valid email address.</span>
