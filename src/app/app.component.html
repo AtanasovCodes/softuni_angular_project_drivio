@@ -1,8 +1,16 @@
 <div class="app-container">
   <app-header />
+
+  @if (isWakingUp) {
+    <div class="waking-up-message">
+      <p>🚀 Starting up the server, please wait a moment...</p>
+    </div>
+  }
+
   @if (loading$ | async) {
     <app-loading-spinner />
   }
+
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>

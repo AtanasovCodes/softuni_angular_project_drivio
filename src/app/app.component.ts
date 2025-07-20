@@ -5,6 +5,7 @@ import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { BackendService } from './core/services/backend/backend.service';
 import { LoadingService } from './core/services/loading/loading.service';
 import { MetaService } from './core/services/meta/meta.service';
 import { ResizeService } from './core/services/resize/resize.service';
@@ -34,7 +35,9 @@ export class AppComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
   private loadingService = inject(LoadingService);
+  private backendService = inject(BackendService);
   loading$: Observable<boolean> = this.loadingService.loading$;
+  isWakingUp = false;
 
   constructor() {
     this.loading$ = this.loadingService.loading$;
@@ -53,6 +56,16 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.metaService.setMetaTags();
     this.resizeService.onResize(window.innerWidth);
+    this.isWakingUp = true;
+    this.backendService.pingUntilAwake().subscribe((status) => {
+      if (status === 'unreachable') {
+        this.isWakingUp = true;
+        console.log('Waiting for server to wake up...');
+      } else {
+        this.isWakingUp = false;
+        console.log('Server is awake:', status);
+      }
+    });
   }
 
   @HostListener('window:resize', ['$event'])
