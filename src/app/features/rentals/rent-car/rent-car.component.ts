@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingService } from 'app/core/services/loading/loading.service';
 import { ToastrService } from 'ngx-toastr';
 import { Car } from 'types/cars.interface';
 
@@ -22,6 +23,7 @@ export class RentCarComponent {
   private activatedRoute = inject(ActivatedRoute);
   private toastr = inject(ToastrService);
   private router = inject(Router);
+  private loadingService = inject(LoadingService);
 
   carId: string | null = null;
   carDetails: Car | null = null;
@@ -78,14 +80,17 @@ export class RentCarComponent {
         startDate: formattedStartDate,
         endDate: formattedEndDate,
       };
+      this.loadingService.show();
 
       this.rentalService.createRental(rentalData).subscribe({
         next: () => {
           this.toastr.success('Rental created successfully', 'Success');
           this.router.navigate(['/rentals/success']);
+          this.loadingService.hide();
         },
         error: () => {
           this.toastr.error('Failed to create rental', 'Error');
+          this.loadingService.hide();
         },
       });
     }
