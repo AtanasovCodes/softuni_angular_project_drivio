@@ -31,3 +31,20 @@
   background-color: var(--background-color);
   border-radius: var(--border-radius);
 }
+
+@media (max-width: 768px) {  
+  .rent-car-container {
+    flex-direction: column;
+    gap:1.5rem;
+  }
+
+  .rent-car-container .rent-car-details,
+  .rent-car-container .rent-car-form {
+    flex-basis: 100%;
+    padding: 0;
+  }
+
+  .rent-car-container .rent-car-details img {
+    height: 300px;
+  }
+}

@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseURL: 'http://localhost:3000/api',
-  appURL: 'http://localhost:4200',
+  baseURL: 'https://drivio-backend.onrender.com/api',
+  appURL: 'https://drivio-angular.netlify.app',
 };
