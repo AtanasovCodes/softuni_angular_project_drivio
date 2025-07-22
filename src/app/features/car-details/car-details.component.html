@@ -31,7 +31,9 @@
         </section>
         <app-divider />
         <section class="mb-3">
-          <h4 tabindex="0">Price: ${{ car.pricePerDay }} / day</h4>
+          <h4 tabindex="0">
+            Price: {{ car.pricePerDay | currency: 'USD' : 'symbol' : '1.2-2' }} / day
+          </h4>
         </section>
         <app-divider />
         <h3 class="mb-3">Features</h3>

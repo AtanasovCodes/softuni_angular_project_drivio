@@ -10,18 +10,39 @@
     <h1 class="mb-3">
       Rent {{ carDetails?.brand }} {{ carDetails?.model }} {{ carDetails?.year }}
     </h1>
-    <p class="mb-4">Fill in the details below to rent this car.</p>
-    <label for="rentalDuration">Rental Duration (days):</label>
+    <h5 class="mb-2">
+      Choose your rental dates below. The car will be available for pickup on the start date and
+      must be returned by the end date.
+    </h5>
+    <p class="mb-3">
+      <strong>Price:</strong>
+      {{ carDetails?.pricePerDay | currency: 'USD' : 'symbol' : '1.2-2' }} per day
+    </p>
+
+    <label for="startDate">Start Date:</label>
     <input
-      type="number"
-      id="rentalDuration"
-      name="rentalDuration"
-      min="1"
+      type="date"
+      id="startDate"
+      name="startDate"
       required
-      formControlName="rentalDuration"
+      formControlName="startDate"
+      [min]="getToday()"
     />
-    @if (isFieldInvalid('rentalDuration')) {
-      <span class="error">Rental duration must be at least 1 day.</span>
+    @if (isFieldInvalid('startDate')) {
+      <span class="error">Start date is required.</span>
+    }
+
+    <label for="endDate">End Date:</label>
+    <input
+      type="date"
+      id="endDate"
+      name="endDate"
+      required
+      formControlName="endDate"
+      [min]="rentCarForm.get('startDate')?.value || getToday()"
+    />
+    @if (isFieldInvalid('endDate')) {
+      <span class="error">End date is required.</span>
     }
 
     <button class="primary" [disabled]="rentCarForm.invalid" (click)="onSubmit()">Rent Car</button>

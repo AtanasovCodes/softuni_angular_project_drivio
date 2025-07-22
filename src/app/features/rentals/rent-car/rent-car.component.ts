@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +13,7 @@ import { RentalService } from '../services/rental.service';
 @Component({
   selector: 'app-rent-car',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './rent-car.component.html',
   styleUrl: './rent-car.component.css',
 })
@@ -29,7 +30,8 @@ export class RentCarComponent {
   carDetails: Car | null = null;
 
   rentCarForm = this.fb.group({
-    rentalDuration: new FormControl(1, [Validators.required, Validators.min(1)]),
+    startDate: new FormControl<string>(this.getToday(), [Validators.required]),
+    endDate: new FormControl<string>(this.getToday(), [Validators.required]),
   });
 
   get rentalDuration() {
@@ -41,13 +43,13 @@ export class RentCarComponent {
     return !!(control && control.invalid && control.touched);
   }
 
-  isEmailInvalid(controlName: keyof typeof this.rentCarForm.controls) {
-    const control = this.rentCarForm.get(controlName);
-    return control && control.errors && control.errors['pattern'] && control.touched;
-  }
-
   getCarDetails(carId: string) {
     return this.carsService.getCarById(carId);
+  }
+
+  getToday(): string {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
   }
 
   ngOnInit() {
@@ -66,20 +68,24 @@ export class RentCarComponent {
 
   onSubmit() {
     if (this.rentCarForm.valid) {
-      const rentalDuration = this.rentalDuration.value as number;
+      const startDateValue = this.rentCarForm.get('startDate')?.value;
+      const endDateValue = this.rentCarForm.get('endDate')?.value;
 
-      const startDate = new Date();
-      const endDate = new Date(startDate.getTime() + rentalDuration * 24 * 60 * 60 * 1000);
+      if (!startDateValue || !endDateValue) {
+        this.toastr.error('Start date and end date are required', 'Error');
+        return;
+      }
 
       // Format to ISO string in UTC (e.g., "2024-06-01T10:00:00Z")
-      const formattedStartDate = startDate.toISOString();
-      const formattedEndDate = endDate.toISOString();
+      const formattedStartDate = new Date(startDateValue).toISOString();
+      const formattedEndDate = new Date(endDateValue).toISOString();
 
       const rentalData = {
         carId: Number(this.carDetails?.id),
         startDate: formattedStartDate,
         endDate: formattedEndDate,
       };
+
       this.loadingService.show();
 
       this.rentalService.createRental(rentalData).subscribe({
