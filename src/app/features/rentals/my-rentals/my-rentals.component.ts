@@ -1,10 +1,11 @@
 import { paths } from 'constants/paths.constants';
 
 import { DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
 import { LoadingService } from 'app/core/services/loading/loading.service';
 import { UserService } from 'app/features/user/services/user.service';
+import { CancelRentalModalComponent } from 'app/shared/rental-actions/components/cancel-rental-modal/cancel-rental-modal.component';
+import { EditRentalModalComponent } from 'app/shared/rental-actions/components/edit-rental-modal/edit-rental-modal.component';
 import { RentalData } from 'types/rental.interface';
 
 import { RentalService } from '../services/rental.service';
@@ -12,11 +13,11 @@ import { RentalService } from '../services/rental.service';
 @Component({
   selector: 'app-my-rentals',
   standalone: true,
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, CancelRentalModalComponent, EditRentalModalComponent],
   templateUrl: './my-rentals.component.html',
   styleUrl: './my-rentals.component.css',
 })
-export class MyRentalsComponent {
+export class MyRentalsComponent implements OnInit {
   private rentalService = inject(RentalService);
   private userService = inject(UserService);
   private userId = this.userService.getUserId();
@@ -25,6 +26,9 @@ export class MyRentalsComponent {
   rentals: RentalData[] = [];
   paths = paths;
   errorMessage: string | null = null;
+  showCancelRentalModal = false;
+  showEditRentalModal = false;
+  rentalId: number | null = null;
 
   constructor() {
     this.loadingService.show();
@@ -48,15 +52,33 @@ export class MyRentalsComponent {
     });
   }
 
-  cancelRental(rentalId: number) {
-    this.rentalService.cancelRental(rentalId).subscribe({
-      next: () => {
-        this.loadRentals();
-      },
-      error: (error) => {
-        console.error('Error cancelling rental:', error);
-        this.errorMessage = 'Failed to cancel rental. Please try again later.';
-      },
-    });
+  openCancelRentalModal(rentalId: number): void {
+    this.rentalId = rentalId;
+    this.showCancelRentalModal = true;
+  }
+
+  openEditRentalModal(rentalId: number): void {
+    this.rentalId = rentalId;
+    this.showEditRentalModal = true;
+  }
+
+  closeCancelRentalModal(): void {
+    this.showCancelRentalModal = false;
+    this.rentalId = null;
+  }
+
+  closeEditRentalModal(): void {
+    this.showEditRentalModal = false;
+    this.rentalId = null;
+  }
+
+  onRentalUpdated() {
+    this.loadRentals();
+    this.closeEditRentalModal();
+  }
+
+  onRentalCancelled() {
+    this.loadRentals();
+    this.closeCancelRentalModal();
   }
 }

@@ -19,9 +19,20 @@ export class RentalService {
     return this.httpClient.delete(`${environment.baseURL}/rentals/${rentalId}`);
   }
 
+  getRentalDetails(rentalId: number) {
+    return this.httpClient.get<Rental>(`${environment.baseURL}/rentals/${rentalId}`);
+  }
+
   getUserRentals({ userId }: { userId: number | null }) {
     return this.httpClient.get<UserRentalsResponse>(
       `${environment.baseURL}/rentals?userId=${userId}`
+    );
+  }
+
+  updateRental(rentalData: Omit<Rental, 'userId' | 'status' | 'price' | 'carId'>) {
+    return this.httpClient.put<Rental>(
+      `${environment.baseURL}/rentals/${rentalData.id}`,
+      rentalData
     );
   }
 }

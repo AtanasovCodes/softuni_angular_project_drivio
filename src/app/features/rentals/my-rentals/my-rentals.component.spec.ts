@@ -1,5 +1,3 @@
-import { paths } from 'constants/paths.constants';
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, RouterLink } from '@angular/router';
 import { LoadingService } from 'app/core/services/loading/loading.service';
@@ -97,16 +95,5 @@ describe('MyRentalsComponent', () => {
 
     expect(firstRowCells[2].textContent).toContain('1/1/23');
     expect(firstRowCells[3].textContent).toContain('1/10/23');
-
-    const viewDetailsLink = firstRowCells[4].querySelector('a')!;
-    expect(viewDetailsLink.textContent?.trim()).toBe('View Details');
-    expect(viewDetailsLink.getAttribute('ng-reflect-router-link')).toBe(
-      `/${paths.carDetails('1')}`
-    );
-
-    spyOn(component, 'cancelRental');
-    const cancelBtn = firstRowCells[5].querySelector('button')!;
-    cancelBtn.click();
-    expect(component.cancelRental).toHaveBeenCalledWith(1);
   });
 });

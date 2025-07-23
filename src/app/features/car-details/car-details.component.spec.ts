@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 import { Car } from 'types/cars.interface';
 
@@ -28,6 +29,8 @@ describe('CarDetailsComponent', () => {
 
   const mockUserService = {
     isLoggedIn$: of(true),
+    getUserId: jasmine.createSpy('getUserId').and.returnValue(1),
+    getMe: jasmine.createSpy('getMe').and.returnValue(of({ id: 1 })),
   };
 
   beforeEach(async () => {
@@ -37,6 +40,15 @@ describe('CarDetailsComponent', () => {
         provideRouter([]),
         provideHttpClient(),
         { provide: UserService, useValue: mockUserService },
+        {
+          provide: ToastrService,
+          useValue: {
+            success: jasmine.createSpy('success'),
+            error: jasmine.createSpy('error'),
+            info: jasmine.createSpy('info'),
+            warning: jasmine.createSpy('warning'),
+          },
+        },
       ],
     }).compileComponents();
 
@@ -131,7 +143,7 @@ describe('CarDetailsComponent', () => {
     fixture.detectChanges();
 
     const button = fixture.nativeElement.querySelector('button.error');
-    
+
     expect(button).toBeTruthy();
     expect(button.textContent).toContain('Login to rent this car');
   });

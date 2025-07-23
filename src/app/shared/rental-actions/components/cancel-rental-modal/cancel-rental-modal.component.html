@@ -1,0 +1,7 @@
+<app-modal [show]="show" title="Cancel Rental" (close)="closeModal()">
+  <p>Are you sure you want to cancel this rental?</p>
+  <footer class="modal-footer">
+    <button class="error" (click)="cancelRental()">Yes, cancel rental</button>
+    <button class="primary" (click)="closeModal()">No, keep rental</button>
+  </footer>
+</app-modal>

@@ -35,12 +35,38 @@
               <td>{{ rental.startDate | date: 'shortDate' }}</td>
               <td>{{ rental.endDate | date: 'shortDate' }}</td>
               <td>
-                <a routerLink="/{{ paths.carDetails(rental.carId.toString()) }}" class="primary"
-                  >View Details</a
-                >
+                <button class="primary button-with-icon" (click)="openEditRentalModal(rental.id)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-label="Edit"
+                  >
+                    <path
+                      d="M4 21h4.586a1 1 0 0 0 .707-.293l11-11a1 1 0 0 0 0-1.414L17.707 5a1 1 0 0 0-1.414 0l-11 11A1 1 0 0 0 5 17.414V21zM6 18v-1.586L16.293 6.121 17.879 7.707 7.586 18H6zm13.707-11.707a1 1 0 0 0 0-1.414l-1.586-1.586a1 1 0 0 0-1.414 0L15 4.586 19.414 9l.293-.293z"
+                    />
+                  </svg>
+                  Edit
+                </button>
               </td>
               <td>
-                <button class="error" (click)="cancelRental(rental.id)">Cancel Rental</button>
+                <button class="error button-with-icon" (click)="openCancelRentalModal(rental.id)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-label="Cancel"
+                  >
+                    <path
+                      d="M18.364 5.636a1 1 0 0 0-1.414 0L12 10.586 7.05 5.636a1 1 0 1 0-1.414 1.414L10.586 12l-4.95 4.95a1 1 0 1 0 1.414 1.414L12 13.414l4.95 4.95a1 1 0 0 0 1.414-1.414L13.414 12l4.95-4.95a1 1 0 0 0 0-1.414z"
+                    />
+                  </svg>
+                  Cancel
+                </button>
               </td>
             </tr>
           }
@@ -49,3 +75,21 @@
     </div>
   }
 </section>
+
+@if (showCancelRentalModal) {
+  <app-cancel-rental-modal
+    [rentalId]="rentalId"
+    [show]="showCancelRentalModal"
+    (closed)="closeCancelRentalModal()"
+    (rentalCancelled)="onRentalCancelled()"
+  ></app-cancel-rental-modal>
+}
+
+@if (showEditRentalModal) {
+  <app-edit-rental-modal
+    [rentalId]="rentalId"
+    [show]="showEditRentalModal"
+    (closed)="closeEditRentalModal()"
+    (rentalUpdated)="onRentalUpdated()"
+  ></app-edit-rental-modal>
+}

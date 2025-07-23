@@ -115,6 +115,12 @@ button.primary:disabled {
   opacity: 0.7;
 }
 
+.button-with-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 /* ===== Responsive Typography ===== */
 @media (max-width: 600px) {
   html {
@@ -146,5 +152,3 @@ textarea::placeholder,
 select::placeholder {
   font-size: 0.9rem;
 }
-
-

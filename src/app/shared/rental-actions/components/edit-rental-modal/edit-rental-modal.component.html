@@ -1,0 +1,25 @@
+<app-modal [show]="show" title="Edit Rental" (close)="closeModal()">
+  <form [formGroup]="editRentalForm" class="edit-rental-form" (ngSubmit)="onSubmit()">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required formControlName="startDate" />
+    @if (isFieldInvalid('startDate')) {
+      <span class="error">Start date is required.</span>
+    }
+
+    <label for="endDate">End Date:</label>
+    <input
+      type="date"
+      id="endDate"
+      name="endDate"
+      required
+      formControlName="endDate"
+      [min]="editRentalForm.get('startDate')?.value"
+      [defaultValue]="editRentalForm.get('endDate')?.value | date: 'yyyy-MM-dd'"
+    />
+    @if (isFieldInvalid('endDate')) {
+      <span class="error">End date is required.</span>
+    }
+
+    <button class="primary" [disabled]="editRentalForm.invalid">Edit Car</button>
+  </form>
+</app-modal>

@@ -1,0 +1,19 @@
+@if (show) {
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="modal-header">
+        <h3>{{ title }}</h3>
+        <button (click)="closeModal()" class="close-button" aria-label="Close modal">×</button>
+      </header>
+      <section class="modal-body">
+        <ng-content></ng-content>
+      </section>
+    </div>
+  </div>
+}

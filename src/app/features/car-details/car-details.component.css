@@ -70,6 +70,12 @@
   margin-top: 10rem;
 }
 
+.car-details__owner-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
 @media (max-width: 768px) {
   .car-details {
     flex-direction: column;
@@ -95,5 +101,10 @@
 
   .car-details__more-cars {
     margin-top: 3.5rem;
+  }
+
+  .car-details__owner-actions {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

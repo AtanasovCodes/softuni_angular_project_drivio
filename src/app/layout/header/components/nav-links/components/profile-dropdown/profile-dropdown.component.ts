@@ -1,8 +1,7 @@
 import { PROFILE_MENU_LINKS } from 'constants/profile-menu.constants';
 
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserService } from 'app/features/user/services/user.service';
 
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 
@@ -16,8 +15,6 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 export class ProfileDropdownComponent {
   links = PROFILE_MENU_LINKS;
   isOpen = false;
-
-  private userService = inject(UserService);
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;

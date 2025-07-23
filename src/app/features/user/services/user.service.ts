@@ -31,7 +31,8 @@ export class UserService {
   }
 
   getUserId(): number | null {
-    return this.user$$.value ? this.user$$.value.id : null;
+    const user = this.user$$.value;
+    return user ? user.id : null;
   }
 
   getMe(): Observable<User | null> {
