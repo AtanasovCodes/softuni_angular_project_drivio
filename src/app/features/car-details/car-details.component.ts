@@ -33,6 +33,7 @@ import { UserService } from '../user/services/user.service';
     CancelRentalModalComponent,
     EditRentalModalComponent,
   ],
+  providers: [CarsService],
   templateUrl: './car-details.component.html',
   styleUrl: './car-details.component.css',
 })
@@ -69,13 +70,8 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
       this.carId = carId;
       this.getCarDetails(carId);
       this.getMoreCars();
-
       this.isOwner();
     });
-  }
-
-  ngOnDestroy() {
-    this.metaService.setMetaTags();
   }
 
   toggleCancelRentalModal() {
@@ -136,12 +132,6 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  editRental() {
-    if (!this.carId) {
-      return;
-    }
-  }
-
   getMoreCars() {
     if (!this.carId) {
       return;
@@ -191,5 +181,9 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
     this.toastr.success('Rental updated');
     this.getCarDetails(this.carId!);
     this.closeEditRentalModal();
+  }
+
+  ngOnDestroy() {
+    this.metaService.setMetaTags();
   }
 }

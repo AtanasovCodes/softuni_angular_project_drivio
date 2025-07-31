@@ -1,11 +1,9 @@
-import { Component, inject } from '@angular/core';
-import { Car } from 'types/cars.interface';
+import { Component } from '@angular/core';
 
 import { HeroComponent } from './components/hero/hero.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
-import { FeaturedCarsComponent } from '../../shared/featured-cars/featured-cars.component';
-import { CarsService } from '../cars/services/cars/cars.service';
+import { FeaturedCarsComponent } from '../cars/components/featured-cars/featured-cars.component';
 
 @Component({
   selector: 'app-home',
@@ -14,27 +12,4 @@ import { CarsService } from '../cars/services/cars/cars.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
-  cars: Car[] = [];
-
-  private carsService = inject(CarsService);
-
-  ngOnInit() {
-    this.getCars();
-  }
-
-  getCars() {
-    this.carsService
-      .getAllCars({
-        limit: 3,
-      })
-      .subscribe({
-        next: (cars) => {
-          this.cars = cars.data;
-        },
-        error: (error) => {
-          console.error('Error fetching featured cars:', error);
-        },
-      });
-  }
-}
+export class HomeComponent {}

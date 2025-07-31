@@ -1,4 +1,4 @@
-type CarStatus = 'free' | 'rented';
+export type CarStatus = 'free' | 'rented';
 
 export interface Car {
   id: number;
