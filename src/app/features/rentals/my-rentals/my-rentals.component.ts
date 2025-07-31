@@ -4,8 +4,8 @@ import { DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { LoadingService } from 'app/core/services/loading/loading.service';
 import { UserService } from 'app/features/user/services/user.service';
-import { CancelRentalModalComponent } from 'app/shared/rental-actions/components/cancel-rental-modal/cancel-rental-modal.component';
-import { EditRentalModalComponent } from 'app/shared/rental-actions/components/edit-rental-modal/edit-rental-modal.component';
+import { CancelRentalModalComponent } from 'app/features/rentals/rental-actions/components/cancel-rental-modal/cancel-rental-modal.component';
+import { EditRentalModalComponent } from 'app/features/rentals/rental-actions/components/edit-rental-modal/edit-rental-modal.component';
 import { RentalData } from 'types/rental.interface';
 
 import { RentalService } from '../services/rental.service';

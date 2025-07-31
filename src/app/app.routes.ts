@@ -2,8 +2,8 @@ import { paths } from 'constants/paths.constants';
 
 import { Routes } from '@angular/router';
 
-import { CarAvailabilityGuard } from './core/guards/car-availabilitty.guard';
-import { LoginGuard } from './core/guards/login.guard';
+import { CarAvailabilityGuard } from './core/guards/car-vailabilitty/car-availabilitty.guard';
+import { LoginGuard } from './core/guards/login/login.guard';
 import { CarDetailsComponent } from './features/car-details/car-details.component';
 import { CarsComponent } from './features/cars/cars.component';
 import { ContactsComponent } from './features/contacts/contacts.component';
@@ -67,7 +67,7 @@ export const routes: Routes = [
   },
   {
     path: `${paths.notFound}`,
-    loadComponent: () => import('./not-found/not-found.component').then((m) => m.NotFoundComponent),
+    loadComponent: () => import('./core/components/not-found/not-found.component').then((m) => m.NotFoundComponent),
   },
 
   {
