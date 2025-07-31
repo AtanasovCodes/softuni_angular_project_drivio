@@ -39,30 +39,27 @@ export class AppComponent implements OnInit {
   loading$: Observable<boolean> = this.loadingService.loading$;
   isWakingUp = false;
 
-  ngOnInit() {
-    this.metaService.setMetaTags();
-    this.resizeService.onResize(window.innerWidth);
-    this.wakeupServer();
-    this.getInitialUser();
+  constructor() {
+    this.loading$ = this.loadingService.loading$;
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.scrollToTop();
+        const token = localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN_KEY);
+        if (token) {
+          this.userService.getMe().subscribe();
+        } else {
+          this.userService.clearUser();
+        }
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  private scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  ngOnInit() {
+    this.metaService.setMetaTags();
+    this.resizeService.onResize(window.innerWidth);
+    this.isWakingUp = true;
 
-  private getInitialUser() {
-    const token = localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN_KEY);
-    if (token) {
-      this.userService.getMe().subscribe();
-    }
-  }
-
-  private wakeupServer() {
     this.backendService.pingUntilAwake().subscribe((status) => {
       if (status === 'unreachable') {
         this.isWakingUp = true;
