@@ -1,14 +1,9 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
+import { allowedEmailProviders } from './custom-validators.constants';
+
 export class CustomValidators {
   static emailValidator(control: AbstractControl): ValidationErrors | null {
-    // TODO: Extract allowed email providers to a constant or configuration
-    const allowedEmailProviders: string[] = [
-      'gmail.com',
-      'yahoo.com',
-      'outlook.com',
-      'hotmail.com',
-    ];
     const emailPattern = new RegExp(`^[a-zA-Z0-9._%+-]+@(${allowedEmailProviders.join('|')})$`);
     const valid = emailPattern.test(control.value);
     return valid ? null : { pattern: true };
