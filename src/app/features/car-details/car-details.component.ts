@@ -5,11 +5,8 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LoadingService } from 'app/core/services/loading/loading.service';
 import { MetaService } from 'app/core/services/meta/meta.service';
-import { CancelRentalModalComponent } from 'app/features/rentals/rental-actions/components/cancel-rental-modal/cancel-rental-modal.component';
-import { EditRentalModalComponent } from 'app/features/rentals/rental-actions/components/edit-rental-modal/edit-rental-modal.component';
 import { ChipComponent } from 'app/shared/chip/chip.component';
 import { DividerComponent } from 'app/shared/divider/divider.component';
-import { ToastrService } from 'ngx-toastr';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { Car } from 'types/cars.interface';
@@ -30,8 +27,6 @@ import { UserService } from '../user/services/user.service';
     TitleCasePipe,
     AsyncPipe,
     CurrencyPipe,
-    CancelRentalModalComponent,
-    EditRentalModalComponent,
   ],
   providers: [CarsService],
   templateUrl: './car-details.component.html',
@@ -44,7 +39,6 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
   private metaService = inject(MetaService);
   private loadingService = inject(LoadingService);
   private rentalService = inject(RentalService);
-  private toastr = inject(ToastrService);
 
   car: Car | null = null;
   carId: string | null = null;
@@ -64,7 +58,6 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
     this.activatedRoute.paramMap.subscribe((params) => {
       const carId = params.get('id');
       if (!carId) {
-        console.error('Car ID is not provided');
         return;
       }
       this.carId = carId;
@@ -72,22 +65,6 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
       this.getMoreCars();
       this.isOwner();
     });
-  }
-
-  toggleCancelRentalModal() {
-    this.showCancelRentalModal = !this.showCancelRentalModal;
-    if (this.showCancelRentalModal) {
-      this.loadingService.hide();
-    }
-  }
-
-  toggleEditRentalModal() {
-    if (!this.rentalId) {
-      this.toastr.error('No rental found to edit', 'Error');
-      return;
-    }
-    this.showEditRentalModal = !this.showEditRentalModal;
-    this.loadingService.hide();
   }
 
   getCarDetails(carId: string) {
@@ -145,42 +122,6 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
         console.error('Error fetching more cars:', error);
       },
     });
-  }
-
-  openCancelRentalModal() {
-    if (!this.rentalId) {
-      this.toastr.error('No rental found to cancel', 'Error');
-      return;
-    }
-    this.showCancelRentalModal = true;
-  }
-
-  openEditRentalModal() {
-    if (!this.rentalId) {
-      this.toastr.error('No rental found to edit', 'Error');
-      return;
-    }
-    this.showEditRentalModal = true;
-  }
-
-  closeCancelRentalModal() {
-    this.showCancelRentalModal = false;
-  }
-
-  closeEditRentalModal() {
-    this.showEditRentalModal = false;
-  }
-
-  onRentalCanceled() {
-    this.toastr.success('Rental canceled');
-    this.getCarDetails(this.carId!);
-    this.closeCancelRentalModal();
-  }
-
-  onRentalUpdated() {
-    this.toastr.success('Rental updated');
-    this.getCarDetails(this.carId!);
-    this.closeEditRentalModal();
   }
 
   ngOnDestroy() {

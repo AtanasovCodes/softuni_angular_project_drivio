@@ -1,27 +1,83 @@
 # Drivio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+[Link](https://drivio-angular.netlify.app/home)
 
-## Development server
+The idea of the app is to provide a platform for user to rent vehicles. Users can rent a vehicle for a specific period of time, and the app will handle the booking. For the moment there is no payment integration, but it can be added in the future.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+- User registration and login
+- Vehicle listing with details
+- Booking system for vehicles
+- User profile management
+- Responsive design
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to run the app
 
-## Build
+## NOTE
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The backend server is hosted on a free hosting service (Render.com) and may take a few seconds to start up
+Initialy you will see a loading screen, saying "🚀 Starting up the server, please wait a moment.."
 
-## Running unit tests
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/drivio.git
+   cd drivio
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   ```bash
+   ng serve or npm start
+   ```
 
-## Running end-to-end tests
+4. Open your browser and navigate to `http://localhost:4200`.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Technologies Used
 
-## Further help
+- **Frontend Framework:** Angular 18
+- **Programming Language:** TypeScript
+- **Styling:** HTML, CSS
+- **Reactive Programming:** RxJS
+- **Notifications:** ngx-toastr
+- **Icons:** Lucide Angular
+- **Linting:** ESLint, Angular ESLint
+- **Code Formatting:** Prettier
+- **Testing:**
+  - Jasmine (Unit Testing)
+  - Karma (Test Runner)
+- **Build Tools:**
+  - Angular CLI
+  - Husky (Git Hooks)
+- **Package Management:** npm
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Folder Structure
+
+```
+drivio/
+├── .husky/           # Git hooks configuration
+├── public/          #  Static assets (images, icons, etc.)
+├── src/
+│   ├── app/          # Main application code
+│   │   ├── core/  #  Core features and services
+│   │   ├── features/ # Feature modules
+│   │   ├── layout/  # Layout components
+│   │   ├── shared/ # Reusable components
+│   ├── constants/      # Constants and configuration files
+│   ├── environments/   # Environment-specific configurations
+│   ├── styles/         # Global styles
+│   ├── types/         # Type definitions
+
+```
+
+## Account for testing
+
+- **Email:** alex@gmail.com
+- **Password:** asdasd
+
+## User Login Flow
+
+![User Login Flow](./public/diagrams/login-flow.png)
