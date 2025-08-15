@@ -31,7 +31,7 @@ Initialy you will see a loading screen, saying "🚀 Starting up the server, ple
 3. Start the development server:
 
    ```bash
-   ng serve or npm start
+   npm start
    ```
 
 4. Open your browser and navigate to `http://localhost:4200`.
@@ -86,7 +86,7 @@ drivio/
 
 - **First Name:** Minimum 2 characters, only letters.
 - **Last Name:** Minimum 2 characters, only letters.
-- **Phone Number:** Must be a valid phone number format.
+- **Phone Number:** Must be a valid phone number format (e.g., +1234567890).
 - **Email:** Must be a valid email format.
 
   _Allowed Providers: Gmail, Yahoo, Outlook, Hotmail._
