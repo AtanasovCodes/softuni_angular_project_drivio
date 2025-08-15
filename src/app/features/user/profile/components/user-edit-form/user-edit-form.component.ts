@@ -30,7 +30,6 @@ export class UserEditFormComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getMe().subscribe({
       next: (user) => {
-        console.log('Fetched user data:', user);
         this.user = user;
 
         if (!user) {
