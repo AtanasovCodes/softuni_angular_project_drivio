@@ -32,8 +32,16 @@ export class RegisterComponent {
   passwordMismatch = false;
 
   registerForm = this.fb.group({
-    firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.pattern(/^[a-zA-Z]+$/),
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.pattern(/^[a-zA-Z]+$/),
+    ]),
     phoneNumber: new FormControl('', [
       Validators.required,
       Validators.pattern(/^\+?[0-9]{10,15}$/),
@@ -80,6 +88,11 @@ export class RegisterComponent {
   isFieldInvalid(controlPath: string) {
     const control = this.registerForm.get(controlPath);
     return !!(control && control.invalid && control.touched);
+  }
+
+  isContainsOnlyLetters(controlPath: string) {
+    const control = this.registerForm.get(controlPath);
+    return control?.hasError('pattern') && control.touched;
   }
 
   isEmailInvalid(controlName: keyof typeof this.registerForm.controls) {

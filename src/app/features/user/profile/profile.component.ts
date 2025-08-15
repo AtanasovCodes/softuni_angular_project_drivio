@@ -1,6 +1,6 @@
 import { paths } from 'constants/paths.constants';
 
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { User } from 'types/user.interface';
@@ -13,7 +13,7 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [AsyncPipe, RouterLink, CommonModule, UserInfoComponent, UserEditFormComponent],
+  imports: [RouterLink, CommonModule, UserInfoComponent, UserEditFormComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })

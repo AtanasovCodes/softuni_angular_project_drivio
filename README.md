@@ -81,3 +81,14 @@ drivio/
 ## User Login Flow
 
 ![User Login Flow](./public/diagrams/login-flow.png)
+
+## Registration Requirements
+
+- **First Name:** Minimum 2 characters, only letters.
+- **Last Name:** Minimum 2 characters, only letters.
+- **Phone Number:** Must be a valid phone number format.
+- **Email:** Must be a valid email format.
+
+  _Allowed Providers: Gmail, Yahoo, Outlook, Hotmail._
+
+- **Password:** Minimum 6 characters,

@@ -9,11 +9,15 @@
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
       <input type="text" placeholder="First Name" formControlName="firstName" />
-      @if (isFieldInvalid('firstName')) {
+      @if (isContainsOnlyLetters('firstName')) {
+        <span class="error">First name must contain only letters.</span>
+      } @else if (isFieldInvalid('firstName')) {
         <span class="error">First name must be at least 2 characters long.</span>
       }
       <input type="text" placeholder="Last Name" formControlName="lastName" />
-      @if (isFieldInvalid('lastName')) {
+      @if (isContainsOnlyLetters('lastName')) {
+        <span class="error">Last name must contain only letters.</span>
+      } @else if (isFieldInvalid('lastName')) {
         <span class="error">Last name must be at least 2 characters long.</span>
       }
       <input type="text" placeholder="Phone Number" formControlName="phoneNumber" />

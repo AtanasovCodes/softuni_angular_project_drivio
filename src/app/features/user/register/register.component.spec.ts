@@ -54,6 +54,38 @@ describe('RegisterComponent', () => {
     expect(component.firstName.value).toBe('John');
   });
 
+  it('should display validation error if first name contains non-letter characters', () => {
+    const firstNameInput = fixture.nativeElement.querySelector(
+      'input[type="text"][placeholder="First Name"]'
+    );
+    firstNameInput.value = 'John123';
+    firstNameInput.dispatchEvent(new Event('input'));
+
+    component.firstName.markAsTouched();
+
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('.error');
+    expect(errorMessage).toBeTruthy();
+    expect(errorMessage.textContent).toContain('First name must contain only letters.');
+  });
+
+  it('should display validation error if last name contains non-letter characters', () => {
+    const lastNameInput = fixture.nativeElement.querySelector(
+      'input[type="text"][placeholder="Last Name"]'
+    );
+    lastNameInput.value = 'Doe@!';
+    lastNameInput.dispatchEvent(new Event('input'));
+
+    component.lastName.markAsTouched();
+
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('.error');
+    expect(errorMessage).toBeTruthy();
+    expect(errorMessage.textContent).toContain('Last name must contain only letters.');
+  });
+
   it('should display validation error if the first name is less then 2 characters', () => {
     const firstNameInput = fixture.nativeElement.querySelector(
       'input[type="text"][placeholder="First Name"]'
