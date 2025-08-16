@@ -66,16 +66,6 @@
             </p>
           }
 
-          @if (!isOwner && car.status === 'rented') {
-            <p>
-              This car is currently rented. Feel free to check other
-              <span class="text-primary underline cursor-pointer" routerLink="/{{ paths.cars }}">
-                <a routerLink="{{ paths.cars }}"></a>
-                cars.
-              </span>
-            </p>
-          }
-
           @if (isLoggedIn && car.status === 'free') {
             <button
               class="primary"
